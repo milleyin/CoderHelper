@@ -19,11 +19,15 @@ class SettingsWindowManager {
             window = NSWindow(
                 contentViewController: hostingController
             )
-            window?.setContentSize(NSSize(width: 400, height: 300))
+//            window?.setContentSize(NSSize(width: 400, height: 300))
             window?.styleMask = [.titled, .closable]
             window?.title = "设置"
             window?.isReleasedWhenClosed = false
             window?.level = .floating
+            
+            // 自适应内容尺寸
+            window?.contentView?.layoutSubtreeIfNeeded()
+            window?.center()
         }
 
         window?.center()
