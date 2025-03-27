@@ -1,0 +1,74 @@
+//
+//  UserDefaults.swift
+//  XcodeHelper
+//
+//  Created by Mille Yin on 2025/3/27.
+//
+
+import Foundation
+import CoreLocation
+import Combine
+
+extension UserDefaults {
+    
+    static var userDefaultsInstance: UserDefaults? {
+        UserDefaults(suiteName: "xCodeHelper")
+    }
+}
+
+extension UserDefaults {
+    
+    private enum Keys {
+        static let storedPaths = "storedPaths"
+        static let autoSyncToReminders = "autoSyncToReminders"
+        static let scanFrequency = "scanFrequency"
+        static let enableXcodeTracking = "enableXcodeTracking"
+        static let lastManualScanDate = "lastManualScanDate"
+    }
+
+    /// 存储的本地路径
+    var storedPaths: [String] {
+        get { self.stringArray(forKey: Keys.storedPaths) ?? [] }
+        set { self.set(newValue, forKey: Keys.storedPaths) }
+    }
+
+    /// 是否自动同步 TODO 到提醒事项
+    var autoSyncToReminders: Bool {
+        get { self.bool(forKey: Keys.autoSyncToReminders) }
+        set { self.set(newValue, forKey: Keys.autoSyncToReminders) }
+    }
+
+    /// 扫描频率（0=每次启动，1=30分钟，2=每天一次等）
+    var scanFrequency: ScanFrequency {
+        get { ScanFrequency(rawValue: self.integer(forKey: Keys.scanFrequency)) ?? .everyLaunch }
+        set { self.set(newValue.rawValue, forKey: Keys.scanFrequency) }
+    }
+
+    /// 是否启用 Xcode 活动监听
+    var enableXcodeTracking: Bool {
+        get { self.bool(forKey: Keys.enableXcodeTracking) }
+        set { self.set(newValue, forKey: Keys.enableXcodeTracking) }
+    }
+
+    /// 上次手动扫描时间（可选）
+    var lastManualScanDate: Date? {
+        get { self.object(forKey: Keys.lastManualScanDate) as? Date }
+        set { self.set(newValue, forKey: Keys.lastManualScanDate) }
+    }
+}
+
+enum ScanFrequency: Int, CaseIterable, Identifiable {
+    case everyLaunch = 0
+    case every30Minutes
+    case daily
+
+    var id: Int { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .everyLaunch: return "每次启动"
+        case .every30Minutes: return "每 30 分钟"
+        case .daily: return "每天一次"
+        }
+    }
+}

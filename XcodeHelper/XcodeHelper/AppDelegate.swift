@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.action = #selector(togglePopover(_:))
         }
 
-        // 设置 popover 内容（SwiftUI）
+        // 设置 popover 内容
         let menuView = MenuView()
         popover.contentSize = NSSize(width: 300, height: 400)
         popover.contentViewController = NSHostingController(rootView: menuView)

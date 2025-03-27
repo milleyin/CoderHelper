@@ -13,11 +13,24 @@ struct MenuView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
             Text("🛠 Xcoder Helper")
                 .font(.title)
                 .bold()
             Text("未来这里会显示 TODO 列表")
                 .foregroundColor(.secondary)
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    SettingsWindowManager.shared.showSettingsWindow {
+                        SettingsView()
+                    }
+                } label: {
+                    Image(systemName: "gearshape")
+                }.buttonStyle(.borderless)
+                
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
