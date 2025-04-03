@@ -13,12 +13,7 @@ class SettingsViewModel: ObservableObject {
     
     private let defaults = UserDefaults.standard
     
-    /// 当前已保存的路径列表
-    @Published var storedPaths: [SecurePath] {
-        didSet {
-            defaults.storedBookmarks = storedPaths
-        }
-    }
+    
     /// 是否自动同步
     @Published var autoSyncToReminders: Bool {
         didSet {
@@ -42,13 +37,16 @@ class SettingsViewModel: ObservableObject {
     
     
     init() {
-        self.storedPaths = defaults.storedBookmarks
+        
         self.autoSyncToReminders = defaults.autoSyncToReminders
         self.scanFrequency = defaults.scanFrequency
         self.enableXcodeTracking = defaults.enableXcodeTracking
     }
 }
-//TODO: 测试todo扫描功能
+//TODO: 测试todo扫描功能1
+//TODO: 测试todo扫描功能2
+//TODO: 测试todo扫描功能3
+//TODO: 测试todo扫描功能4
 //MARK: - 扫描路径
 extension SettingsViewModel {
     ///添加路径
@@ -70,8 +68,8 @@ extension SettingsViewModel {
                 
                 let newSecurePath = SecurePath(path: standardizedURL.path, bookmarkData: bookmarkData)
                 
-                if !storedPaths.contains(where: { $0.path == newSecurePath.path }) {
-                    storedPaths.append(newSecurePath)
+                if !FileScannerService.shared.storedPaths.contains(where: { $0.path == newSecurePath.path }) {
+                    FileScannerService.shared.storedPaths.append(newSecurePath)
                 } else {
                     print("⚠️ 該路徑已存在")
                 }
@@ -83,60 +81,7 @@ extension SettingsViewModel {
     }
     ///删除路径
     func removePath(_ path: String) {
-        storedPaths.removeAll { $0.path == path }
+        FileScannerService.shared.storedPaths.removeAll { $0.path == path }
     }
 }
 
-//MARK: - 扫描
-
-extension SettingsViewModel {
-    func scanAllPathsForTODOs() -> [TodoItem] {
-        var result: [TodoItem] = []
-        
-        for secure in storedPaths {
-            do {
-                var isStale = false
-                let url = try URL(
-                    resolvingBookmarkData: secure.bookmarkData,
-                    options: [.withSecurityScope],
-                    relativeTo: nil,
-                    bookmarkDataIsStale: &isStale
-                )
-                
-                guard url.startAccessingSecurityScopedResource() else {
-                    print("無法訪問目錄：\(secure.path)")
-                    continue
-                }
-                
-                let fileManager = FileManager.default
-                let enumerator = fileManager.enumerator(atPath: url.path)
-                
-                while let element = enumerator?.nextObject() as? String {
-                    guard element.hasSuffix(".swift") else { continue }
-                    let fullPath = (url.path as NSString).appendingPathComponent(element)
-                    let fileName = (fullPath as NSString).lastPathComponent
-                    
-                    if let content = try? String(contentsOfFile: fullPath) {
-                        let lines = content.components(separatedBy: .newlines)
-                        
-                        for (i, line) in lines.enumerated() {
-                            let trimmed = line.trimmingCharacters(in: .whitespaces)
-                            if trimmed.hasPrefix("//TODO") || trimmed.hasPrefix("// TODO") {
-                                result.append(
-                                    TodoItem(filePath: fullPath, fileName: fileName, lineNumber: i + 1, content: trimmed)
-                                )
-                            }
-                        }
-                    }
-                }
-                
-                url.stopAccessingSecurityScopedResource()
-                
-            } catch {
-                print("無法解析 bookmark：\(secure.path)，錯誤：\(error)")
-            }
-        }
-        
-        return result
-    }
-}

@@ -45,22 +45,14 @@ fileprivate struct Settings: View {
             
             ScanSettingView(viewModel: viewModel)
             
-            Button {
-                let scanTodo = viewModel.scanAllPathsForTODOs()
-                print(viewModel.storedPaths)
-                print("🧾 找到 \(scanTodo.count) 個 TODO")
-                for todo in scanTodo {
-                    print("\(todo.filePath) - \(todo.fileName):\(todo.lineNumber) 👉 \(todo.content)")
-                }
-            } label: {
-                Text("测试按钮")
-            }
             
         }
     }
 }
 ///扫描路径设置
 fileprivate struct ScanPathView: View {
+    
+    @EnvironmentObject var scanService: FileScannerService
     
     @ObservedObject var viewModel: SettingsViewModel
     
@@ -81,12 +73,12 @@ fileprivate struct ScanPathView: View {
                             .stroke(Color.gray)
                     }
                     .frame(width: 300, height: 100)
-                if viewModel.storedPaths.isEmpty {
+                if scanService.storedPaths.isEmpty {
                     Text("尚未添加任何路徑").opacity(0.5)
                 }else {
                     ScrollView(showsIndicators: true) {
                         VStack(alignment: .leading, spacing: 10) {
-                            ForEach(viewModel.storedPaths, id: \.id) { path in
+                            ForEach(scanService.storedPaths, id: \.id) { path in
                                 HStack {
                                     Button {
                                         viewModel.removePath(path.path)

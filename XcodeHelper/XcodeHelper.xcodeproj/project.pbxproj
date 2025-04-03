@@ -10,6 +10,7 @@
 		BEFCA8742D9E44C2007B9540 /* DevelopmentKit in Frameworks */ = {isa = PBXBuildFile; productRef = BEFCA8732D9E44C2007B9540 /* DevelopmentKit */; };
 		BEFCA8762D9E4CF3007B9540 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCA8752D9E4CF3007B9540 /* TodoItem.swift */; };
 		BEFCA8792D9E5248007B9540 /* SecurePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCA8782D9E5248007B9540 /* SecurePath.swift */; };
+		BEFCA87B2D9E54B7007B9540 /* FileScannerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFCA87A2D9E54B7007B9540 /* FileScannerService.swift */; };
 		E417A37E2D950B6B000C1604 /* SettingsWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417A37D2D950B6B000C1604 /* SettingsWindowManager.swift */; };
 		E417A3812D950BCA000C1604 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417A3802D950BCA000C1604 /* SettingsView.swift */; };
 		E417A3832D950F39000C1604 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417A3822D950F39000C1604 /* UserDefaults.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		BEFCA8752D9E4CF3007B9540 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		BEFCA8782D9E5248007B9540 /* SecurePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurePath.swift; sourceTree = "<group>"; };
+		BEFCA87A2D9E54B7007B9540 /* FileScannerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileScannerService.swift; sourceTree = "<group>"; };
 		E417A37C2D9508C5000C1604 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E417A37D2D950B6B000C1604 /* SettingsWindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowManager.swift; sourceTree = "<group>"; };
 		E417A3802D950BCA000C1604 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				E417A37D2D950B6B000C1604 /* SettingsWindowManager.swift */,
+				BEFCA87A2D9E54B7007B9540 /* FileScannerService.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				BEFCA8792D9E5248007B9540 /* SecurePath.swift in Sources */,
 				E41F039C2D90535600906DDB /* MenuViewModel.swift in Sources */,
 				E417A3862D9512F5000C1604 /* SettingsViewModel.swift in Sources */,
+				BEFCA87B2D9E54B7007B9540 /* FileScannerService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
