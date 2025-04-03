@@ -10,19 +10,20 @@ import SwiftUI
 import AppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var statusItem: NSStatusItem?
-    var popover = NSPopover()
+//    var statusItem: NSStatusItem?
+//    var popover = NSPopover()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
 //        // 设置菜单栏图标
 //        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 //        if let button = statusItem?.button {
-//            button.image = NSImage(systemSymbolName: "hammer.fill", accessibilityDescription: "Xcoder Helper")
+//            button.image = NSImage(systemSymbolName: "hammer", accessibilityDescription: "Xcoder Helper")
 //            button.action = #selector(togglePopover(_:))
 //        }
 //
-//        // 设置 popover 内容
-//        let menuView = MenuView()
+//        // 设置 popover 内容、
+//        let scanService = FileScannerService.shared
+//        let menuView = MenuView().environmentObject(scanService)
 //        popover.contentSize = NSSize(width: 300, height: 400)
 //        popover.contentViewController = NSHostingController(rootView: menuView)
 //        popover.behavior = .transient

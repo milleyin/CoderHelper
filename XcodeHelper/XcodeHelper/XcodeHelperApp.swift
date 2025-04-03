@@ -19,11 +19,15 @@ struct XcodeHelperApp: App {
     @StateObject var scanService: FileScannerService = .shared
     var body: some Scene {
         MenuBarExtra("Xcoder Helper", systemImage: "hammer") {
+            Color.clear.opacity(0)
             MenuView()
                 .environmentObject(scanService)
         }
-        .defaultSize(CGSize(width: 300, height: 400))
+//        .defaultSize(CGSize(width: 300, height: 400))
         .menuBarExtraStyle(.window)
+//        Settings {
+//                    EmptyView()
+//                }
         
     }
 }
