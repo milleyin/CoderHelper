@@ -19,7 +19,7 @@ extension UserDefaults {
 extension UserDefaults {
     
     private enum Keys {
-        static let storedPaths = "storedPaths"
+        static let storedBookmarks = "storedBookmarks"
         static let autoSyncToReminders = "autoSyncToReminders"
         static let scanFrequency = "scanFrequency"
         static let enableXcodeTracking = "enableXcodeTracking"
@@ -27,9 +27,15 @@ extension UserDefaults {
     }
 
     /// 存储的本地路径
-    var storedPaths: [String] {
-        get { self.stringArray(forKey: Keys.storedPaths) ?? [] }
-        set { self.set(newValue, forKey: Keys.storedPaths) }
+    var storedBookmarks: [SecurePath] {
+        get {
+            guard let data = data(forKey: Keys.storedBookmarks) else { return [] }
+            return (try? JSONDecoder().decode([SecurePath].self, from: data)) ?? []
+        }
+        set {
+            let data = try? JSONEncoder().encode(newValue)
+            set(data, forKey: Keys.storedBookmarks)
+        }
     }
 
     /// 是否自动同步 TODO 到提醒事项

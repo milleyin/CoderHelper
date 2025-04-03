@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DevelopmentKit
 
 struct SettingsView: View {
     
@@ -43,6 +44,18 @@ fileprivate struct Settings: View {
             Divider()
             
             ScanSettingView(viewModel: viewModel)
+            
+            Button {
+                let scanTodo = viewModel.scanAllPathsForTODOs()
+                print(viewModel.storedPaths)
+                print("🧾 找到 \(scanTodo.count) 個 TODO")
+                for todo in scanTodo {
+                    print("\(todo.filePath) - \(todo.fileName):\(todo.lineNumber) 👉 \(todo.content)")
+                }
+            } label: {
+                Text("测试按钮")
+            }
+            
         }
     }
 }
@@ -67,16 +80,31 @@ fileprivate struct ScanPathView: View {
                         RoundedRectangle(cornerRadius: 2)
                             .stroke(Color.gray)
                     }
-                    .frame(width: 300, height: 50)
+                    .frame(width: 300, height: 100)
                 if viewModel.storedPaths.isEmpty {
                     Text("尚未添加任何路徑").opacity(0.5)
                 }else {
-                    ForEach(viewModel.storedPaths, id: \.self) { item in
-                        HStack {
-                            Text(item)
-                            Spacer()
+                    ScrollView(showsIndicators: true) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            ForEach(viewModel.storedPaths, id: \.id) { path in
+                                HStack {
+                                    Button {
+                                        viewModel.removePath(path.path)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                    }
+                                    .buttonStyle(.plain)
+                                    Text(path.path)
+                                        .lineLimit(1)
+                                        .truncationMode(.middle)
+                                    Spacer()
+                                }
+                            }
                         }
                     }
+                    .padding()
+                    .frame(height: 100)
+                    
                 }
             }
             HStack {
@@ -89,6 +117,11 @@ fileprivate struct ScanPathView: View {
                 }.buttonStyle(.borderedProminent)
                 
             }
+        }
+        .onAppear {
+//            if DevelopmentKit.isPreview {
+//                viewModel.storedPaths = ["123", "234", "234", "234", "234", "234", "234"]
+//            }
         }
     }
 }
