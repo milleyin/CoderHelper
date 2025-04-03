@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEFCA8742D9E44C2007B9540 /* DevelopmentKit in Frameworks */ = {isa = PBXBuildFile; productRef = BEFCA8732D9E44C2007B9540 /* DevelopmentKit */; };
 		E417A37E2D950B6B000C1604 /* SettingsWindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417A37D2D950B6B000C1604 /* SettingsWindowManager.swift */; };
 		E417A3812D950BCA000C1604 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417A3802D950BCA000C1604 /* SettingsView.swift */; };
 		E417A3832D950F39000C1604 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E417A3822D950F39000C1604 /* UserDefaults.swift */; };
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEFCA8742D9E44C2007B9540 /* DevelopmentKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +132,7 @@
 			);
 			name = XcodeHelper;
 			packageProductDependencies = (
+				BEFCA8732D9E44C2007B9540 /* DevelopmentKit */,
 			);
 			productName = XcodeHelper;
 			productReference = E41F03772D90503900906DDB /* XcodeHelper.app */;
@@ -143,7 +146,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1620;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					E41F03762D90503900906DDB = {
 						CreatedOnToolsVersion = 16.2;
@@ -159,6 +162,9 @@
 			);
 			mainGroup = E41F036E2D90503900906DDB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				BEFCA8722D9E44C2007B9540 /* XCRemoteSwiftPackageReference "DevelopmentKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E41F03782D90503900906DDB /* Products */;
 			projectDirPath = "";
@@ -234,7 +240,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2U974MU9D9;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -297,7 +305,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2U974MU9D9;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -325,11 +335,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = XcodeHelper/XcodeHelper.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2025001;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
-				DEVELOPMENT_TEAM = 2U974MU9D9;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -360,11 +371,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = XcodeHelper/XcodeHelper.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2025001;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
-				DEVELOPMENT_TEAM = 2U974MU9D9;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -410,6 +422,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BEFCA8722D9E44C2007B9540 /* XCRemoteSwiftPackageReference "DevelopmentKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/milleyin/DevelopmentKit.git";
+			requirement = {
+				branch = Dev;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BEFCA8732D9E44C2007B9540 /* DevelopmentKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BEFCA8722D9E44C2007B9540 /* XCRemoteSwiftPackageReference "DevelopmentKit" */;
+			productName = DevelopmentKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E41F036F2D90503900906DDB /* Project object */;
 }

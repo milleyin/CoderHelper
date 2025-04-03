@@ -60,6 +60,7 @@ extension UserDefaults {
 enum ScanFrequency: Int, CaseIterable, Identifiable {
     case everyLaunch = 0
     case every30Minutes
+    case everyHour
     case daily
 
     var id: Int { rawValue }
@@ -68,6 +69,7 @@ enum ScanFrequency: Int, CaseIterable, Identifiable {
         switch self {
         case .everyLaunch: return "每次启动"
         case .every30Minutes: return "每 30 分钟"
+        case .everyHour: return "每 1 小时"
         case .daily: return "每天一次"
         }
     }

@@ -1,0 +1,15 @@
+{
+  "originHash" : "fcaccf743fe233754dd16f02f6067bb7cd81e7572535084a85051dc8b8ed473b",
+  "pins" : [
+    {
+      "identity" : "developmentkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/milleyin/DevelopmentKit.git",
+      "state" : {
+        "branch" : "Dev",
+        "revision" : "1af87eb724d0f541263f58405c3f3761d090ad1a"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import DevelopmentKit
+import AppKit
 
 class SettingsViewModel: ObservableObject {
     
@@ -38,10 +40,33 @@ class SettingsViewModel: ObservableObject {
         }
     }
     
+    
     init() {
         self.storedPaths = defaults.storedPaths
         self.autoSyncToReminders = defaults.autoSyncToReminders
         self.scanFrequency = defaults.scanFrequency
         self.enableXcodeTracking = defaults.enableXcodeTracking
+    }
+}
+
+extension SettingsViewModel {
+    ///添加路径
+    func addPath() {
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.allowsMultipleSelection = false
+        panel.prompt = "選擇資料夾"
+
+        if panel.runModal() == .OK, let selectedURL = panel.url {
+            let path = selectedURL.path
+            if !storedPaths.contains(path) {
+                storedPaths.append(path)
+            }
+        }
+    }
+    ///删除路径
+    func removePath(_ path: String) {
+        storedPaths.removeAll { $0 == path }
     }
 }
