@@ -21,6 +21,11 @@
 		E41F03952D90530100906DDB /* XcodeHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F03902D90530100906DDB /* XcodeHelperApp.swift */; };
 		E41F03982D90531D00906DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F03972D90531D00906DDB /* AppDelegate.swift */; };
 		E41F039C2D90535600906DDB /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F039B2D90535600906DDB /* MenuViewModel.swift */; };
+		E47600DE2DA0D378001996ED /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600DD2DA0D378001996ED /* VisualEffectView.swift */; };
+		E47600E02DA0D51B001996ED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600DF2DA0D51B001996ED /* User.swift */; };
+		E47600E22DA10DE7001996ED /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E12DA10DE7001996ED /* UserSettings.swift */; };
+		E47600E52DA10FFB001996ED /* ScanSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E42DA10FFB001996ED /* ScanSchedulerService.swift */; };
+		E47600E72DA1199C001996ED /* ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E62DA1199C001996ED /* ReminderService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +45,11 @@
 		E41F03902D90530100906DDB /* XcodeHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeHelperApp.swift; sourceTree = "<group>"; };
 		E41F03972D90531D00906DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E41F039B2D90535600906DDB /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		E47600DD2DA0D378001996ED /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		E47600DF2DA0D51B001996ED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E47600E12DA10DE7001996ED /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		E47600E42DA10FFB001996ED /* ScanSchedulerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSchedulerService.swift; sourceTree = "<group>"; };
+		E47600E62DA1199C001996ED /* ReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				E417A37D2D950B6B000C1604 /* SettingsWindowManager.swift */,
-				BEFCA87A2D9E54B7007B9540 /* FileScannerService.swift */,
+				E47600DF2DA0D51B001996ED /* User.swift */,
+				E47600E12DA10DE7001996ED /* UserSettings.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -76,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				E417A3822D950F39000C1604 /* UserDefaults.swift */,
+				E47600DD2DA0D378001996ED /* VisualEffectView.swift */,
 			);
 			path = Ext.;
 			sourceTree = "<group>";
@@ -113,6 +125,7 @@
 				E41F038D2D90530100906DDB /* Assets.xcassets */,
 				E417A3842D950F43000C1604 /* Ext. */,
 				E417A37F2D950B7E000C1604 /* Environment */,
+				E47600E32DA10FE7001996ED /* Services */,
 				BEFCA8772D9E5228007B9540 /* Models */,
 				E41F03962D90530C00906DDB /* Pages */,
 				E41F038C2D90530100906DDB /* Preview Content */,
@@ -130,6 +143,16 @@
 				E417A3852D9512F5000C1604 /* SettingsViewModel.swift */,
 			);
 			path = Pages;
+			sourceTree = "<group>";
+		};
+		E47600E32DA10FE7001996ED /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BEFCA87A2D9E54B7007B9540 /* FileScannerService.swift */,
+				E47600E42DA10FFB001996ED /* ScanSchedulerService.swift */,
+				E47600E62DA1199C001996ED /* ReminderService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,15 +232,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E47600E52DA10FFB001996ED /* ScanSchedulerService.swift in Sources */,
+				E47600E02DA0D51B001996ED /* User.swift in Sources */,
 				E417A37E2D950B6B000C1604 /* SettingsWindowManager.swift in Sources */,
 				BEFCA8762D9E4CF3007B9540 /* TodoItem.swift in Sources */,
 				E41F03982D90531D00906DDB /* AppDelegate.swift in Sources */,
 				E41F03942D90530100906DDB /* MenuView.swift in Sources */,
 				E417A3812D950BCA000C1604 /* SettingsView.swift in Sources */,
+				E47600E72DA1199C001996ED /* ReminderService.swift in Sources */,
+				E47600DE2DA0D378001996ED /* VisualEffectView.swift in Sources */,
 				E41F03952D90530100906DDB /* XcodeHelperApp.swift in Sources */,
 				E417A3832D950F39000C1604 /* UserDefaults.swift in Sources */,
 				BEFCA8792D9E5248007B9540 /* SecurePath.swift in Sources */,
 				E41F039C2D90535600906DDB /* MenuViewModel.swift in Sources */,
+				E47600E22DA10DE7001996ED /* UserSettings.swift in Sources */,
 				E417A3862D9512F5000C1604 /* SettingsViewModel.swift in Sources */,
 				BEFCA87B2D9E54B7007B9540 /* FileScannerService.swift in Sources */,
 			);

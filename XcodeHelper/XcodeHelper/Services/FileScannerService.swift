@@ -14,28 +14,19 @@ class FileScannerService: ObservableObject {
     private let defaults = UserDefaults.standard
     
     private init() {
-        self.storedPaths = defaults.storedBookmarks
-        if !self.storedPaths.isEmpty {
-            self.todoItems = scanAllPathsForTODOs()
-        }
-    }
-    
-    
-    
-    /// 当前已保存的路径列表
-    @Published var storedPaths: [SecurePath] {
-        didSet {
-            defaults.storedBookmarks = storedPaths
-        }
+        
     }
     
     @Published var todoItems: [TodoItem] = []
     
     ///扫描文件功能
-    func scanAllPathsForTODOs() -> [TodoItem] {
+    func scanAllPathsForTODOs(from path: [SecurePath]) -> [TodoItem] {
         var result: [TodoItem] = []
-        
-        for secure in storedPaths {
+        guard !path.isEmpty else {
+            print("尚未添加任何掃描路徑")
+            return []
+        }
+        for secure in path {
             do {
                 var isStale = false
                 let url = try URL(
@@ -64,9 +55,11 @@ class FileScannerService: ObservableObject {
                         for (i, line) in lines.enumerated() {
                             let trimmed = line.trimmingCharacters(in: .whitespaces)
                             if trimmed.hasPrefix("//TODO") || trimmed.hasPrefix("// TODO") {
-                                result.append(
-                                    TodoItem(filePath: fullPath, fileName: fileName, lineNumber: i + 1, content: trimmed)
-                                )
+                                let cleaned = trimmed
+                                    .replacingOccurrences(of: "//TODO: ", with: "", options: .caseInsensitive)
+                                    .replacingOccurrences(of: "// TODO:", with: "", options: .caseInsensitive)
+                                    .trimmingCharacters(in: .whitespaces)
+                                result.append(TodoItem(filePath: fullPath, fileName: fileName, lineNumber: i + 1, content: cleaned))
                             }
                         }
                     }

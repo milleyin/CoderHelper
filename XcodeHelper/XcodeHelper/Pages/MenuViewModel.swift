@@ -15,7 +15,7 @@ class MenuViewModel: ObservableObject {
     let eventStore = EKEventStore()
     
     init () {
-        requestReminderAccess()
+//        requestReminderAccess()
     }
     
     private func requestReminderAccess() {

@@ -44,9 +44,9 @@ extension UserDefaults {
         set { self.set(newValue, forKey: Keys.autoSyncToReminders) }
     }
 
-    /// 扫描频率（0=每次启动，1=30分钟，2=每天一次等）
+    /// 扫描频率（0 = 每次启动, 1 = 每 30 分钟, 2 = 每 1 小时, 3 = 每 2 小时）
     var scanFrequency: ScanFrequency {
-        get { ScanFrequency(rawValue: self.integer(forKey: Keys.scanFrequency)) ?? .everyLaunch }
+        get { ScanFrequency(rawValue: self.integer(forKey: Keys.scanFrequency)) ?? .every30Minutes }
         set { self.set(newValue.rawValue, forKey: Keys.scanFrequency) }
     }
 
@@ -67,7 +67,7 @@ enum ScanFrequency: Int, CaseIterable, Identifiable {
     case everyLaunch = 0
     case every30Minutes
     case everyHour
-    case daily
+    case everyTwoHours
 
     var id: Int { rawValue }
 
@@ -76,7 +76,15 @@ enum ScanFrequency: Int, CaseIterable, Identifiable {
         case .everyLaunch: return "每次启动"
         case .every30Minutes: return "每 30 分钟"
         case .everyHour: return "每 1 小时"
-        case .daily: return "每天一次"
+        case .everyTwoHours: return "每 2 小时"
         }
     }
+    var interval: TimeInterval {
+            switch self {
+            case .everyLaunch: return 0
+            case .every30Minutes: return 1800
+            case .everyHour: return 3600
+            case .everyTwoHours: return 7200
+            }
+        }
 }
