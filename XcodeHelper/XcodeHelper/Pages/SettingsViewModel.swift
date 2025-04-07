@@ -13,7 +13,7 @@ import Combine
 class SettingsViewModel: ObservableObject {
     
     init() {
-//        scanStoredPaths()
+        scanStoredPaths()
     }
     
     var subscriptions: Set<AnyCancellable> = .init()

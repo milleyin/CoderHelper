@@ -14,6 +14,13 @@ class UserSettings: ObservableObject {
     
     private let defaults = UserDefaults.standard
     
+    init() {
+        self.storedPaths = defaults.storedBookmarks
+        self.autoSyncToReminders = defaults.autoSyncToReminders
+        self.scanFrequency = defaults.scanFrequency
+        self.enableXcodeTracking = defaults.enableXcodeTracking
+    }
+    
     /// 当前已保存的路径列表
     @Published var storedPaths: [SecurePath] {
         didSet {
@@ -56,11 +63,6 @@ class UserSettings: ObservableObject {
     ///提示用户手动开启提醒事项授权
     @Published var isShowEnableRemindersAuthorizationAlert: Bool = false
     
-    init() {
-        self.storedPaths = defaults.storedBookmarks
-        self.autoSyncToReminders = defaults.autoSyncToReminders
-        self.scanFrequency = defaults.scanFrequency
-        self.enableXcodeTracking = defaults.enableXcodeTracking
-    }
+    
     
 }
