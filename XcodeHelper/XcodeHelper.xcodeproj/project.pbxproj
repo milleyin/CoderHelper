@@ -21,6 +21,7 @@
 		E41F03952D90530100906DDB /* XcodeHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F03902D90530100906DDB /* XcodeHelperApp.swift */; };
 		E41F03982D90531D00906DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F03972D90531D00906DDB /* AppDelegate.swift */; };
 		E41F039C2D90535600906DDB /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F039B2D90535600906DDB /* MenuViewModel.swift */; };
+		E46E58FF2DA3F52A006C4EE7 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46E58FE2DA3F52A006C4EE7 /* AuthorizationManager.swift */; };
 		E47600DE2DA0D378001996ED /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600DD2DA0D378001996ED /* VisualEffectView.swift */; };
 		E47600E02DA0D51B001996ED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600DF2DA0D51B001996ED /* User.swift */; };
 		E47600E22DA10DE7001996ED /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E12DA10DE7001996ED /* UserSettings.swift */; };
@@ -45,6 +46,7 @@
 		E41F03902D90530100906DDB /* XcodeHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeHelperApp.swift; sourceTree = "<group>"; };
 		E41F03972D90531D00906DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E41F039B2D90535600906DDB /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		E46E58FE2DA3F52A006C4EE7 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		E47600DD2DA0D378001996ED /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		E47600DF2DA0D51B001996ED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E47600E12DA10DE7001996ED /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				E417A37D2D950B6B000C1604 /* SettingsWindowManager.swift */,
+				E46E58FE2DA3F52A006C4EE7 /* AuthorizationManager.swift */,
 				E47600DF2DA0D51B001996ED /* User.swift */,
 				E47600E12DA10DE7001996ED /* UserSettings.swift */,
 			);
@@ -124,9 +127,9 @@
 				E41F03972D90531D00906DDB /* AppDelegate.swift */,
 				E41F038D2D90530100906DDB /* Assets.xcassets */,
 				E417A3842D950F43000C1604 /* Ext. */,
+				BEFCA8772D9E5228007B9540 /* Models */,
 				E417A37F2D950B7E000C1604 /* Environment */,
 				E47600E32DA10FE7001996ED /* Services */,
-				BEFCA8772D9E5228007B9540 /* Models */,
 				E41F03962D90530C00906DDB /* Pages */,
 				E41F038C2D90530100906DDB /* Preview Content */,
 				E41F038F2D90530100906DDB /* XcodeHelper.entitlements */,
@@ -238,6 +241,7 @@
 				BEFCA8762D9E4CF3007B9540 /* TodoItem.swift in Sources */,
 				E41F03982D90531D00906DDB /* AppDelegate.swift in Sources */,
 				E41F03942D90530100906DDB /* MenuView.swift in Sources */,
+				E46E58FF2DA3F52A006C4EE7 /* AuthorizationManager.swift in Sources */,
 				E417A3812D950BCA000C1604 /* SettingsView.swift in Sources */,
 				E47600E72DA1199C001996ED /* ReminderService.swift in Sources */,
 				E47600DE2DA0D378001996ED /* VisualEffectView.swift in Sources */,

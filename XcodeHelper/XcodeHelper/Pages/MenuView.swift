@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
+import EventKit
 
 struct MenuView: View {
     
     @EnvironmentObject var scanService: FileScannerService
     @EnvironmentObject var userSettings: UserSettings
-//    @EnvironmentObject var reminderService: ReminderService
     
     @StateObject var viewModel: MenuViewModel = .init()
     
@@ -45,7 +45,7 @@ struct MenuView: View {
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.white.opacity(0.1))
+                                .fill(Color.clear.opacity(0.1))
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 50)
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
@@ -61,7 +61,7 @@ struct MenuView: View {
                     .buttonStyle(.borderless)
 
                 }else {
-                    TodoContentView()
+                    TodoContentView(viewModel: viewModel)
                 }
                 Spacer()
                 HStack {
@@ -98,7 +98,11 @@ struct MenuView: View {
 
 fileprivate struct TodoContentView: View {
     
+    @ObservedObject var viewModel: MenuViewModel
+    
     @EnvironmentObject var scanService: FileScannerService
+    @EnvironmentObject var authorizationManager: AuthorizationManager
+    @EnvironmentObject var userSettings: UserSettings
     
     var body: some View {
         ScrollView {
@@ -114,7 +118,16 @@ fileprivate struct TodoContentView: View {
                         }
                         
                         Spacer()
-                        Text("1")
+                        Button {
+                            if !authorizationManager.isReminderAuthorized {
+                                authorizationManager.requestReminderAccess()
+                            }else {
+                                viewModel.syncSingleItem(item: item)
+                            }
+                        }label: {
+                            Image(systemName: "checklist")
+                        }.help("添加到提醒事项")
+
                     }.padding()
                         .background(Color.gray.opacity(0.07), in: .rect(cornerRadius: 10))
                 }

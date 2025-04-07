@@ -7,28 +7,36 @@
 
 import Foundation
 import EventKit
+import Combine
+import DevelopmentKit
 
 class MenuViewModel: ObservableObject {
     
     @Published var isAuthorized = false
     
-//    let eventStore = EKEventStore()
+    private let eventStore = EKEventStore()
     
-    init () {
-//        requestReminderAccess()
+    private var subscriptions = Set<AnyCancellable>()
+    
+    init () { }
+    
+    deinit {
+        self.subscriptions.forEach { $0.cancel() }
     }
-    
-//    private func requestReminderAccess() {
-//        eventStore.requestFullAccessToReminders { granted, error in
-//            DispatchQueue.main.async {
-//                if let error = error {
-//                    print("❌ Reminder 权限请求失败: \(error.localizedDescription)")
-//                    return
-//                }
-//                
-//                self.isAuthorized = granted
-//                print(granted ? "✅ 已授权访问提醒事项" : "❌ 用户拒绝提醒事项权限")
-//            }
-//        }
-//    }
+    ///同步单条todo到提醒事项
+    func syncSingleItem(item: TodoItem) {
+        ReminderService.shared.syncSingleItemPublisher(todo: item)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log("错误: \(error)")
+                }
+            } receiveValue: { _ in
+                
+            }.store(in: &subscriptions)
+
+    }
 }

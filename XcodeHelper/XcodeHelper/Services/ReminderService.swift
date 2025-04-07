@@ -10,53 +10,29 @@ import EventKit
 import Combine
 
 final class ReminderService: ObservableObject {
+    
     static let shared = ReminderService()
     
     private let eventStore = EKEventStore()
     private let calendarName = "Xcoder TODOs"
     private(set) var reminderCalendar: EKCalendar?
 
-    @Published private(set) var isAuthorized: Bool = false {
-        didSet {
-            if isAuthorized {
-                self.bindToTODOChanges(scanService: FileScannerService.shared, userSettings: UserSettings.shared)
-            }
-        }
-    }
     private var subscriptions = Set<AnyCancellable>()
 
     private init() {
-        // 初始化時同步授權狀態
-        self.isAuthorized = EKEventStore.authorizationStatus(for: .reminder) == .fullAccess
         self.reminderCalendar = getOrCreateReminderCalendar(named: calendarName)
 
-        // 啟動時補檢查（用戶預設開啟 autoSync，但系統未授權）
-        if UserSettings.shared.autoSyncToReminders, !isAuthorized {
-            requestAccessIfNeeded()
-        }
+//        // 啟動時補檢查（用戶預設開啟 autoSync，但系統未授權）
+//        if UserSettings.shared.autoSyncToReminders, !AuthorizationManager.shared.isReminderAuthorized {
+//            AuthorizationManager.shared.requestReminderAccess()
+//        }
         
-        reminderAuthorizationStatus()
     }
 
     deinit {
         self.subscriptions.forEach { $0.cancel() }
     }
 
-    /// 主動請求授權
-    func requestAccessIfNeeded(completion: ((Bool) -> Void)? = nil) {
-        eventStore.requestFullAccessToReminders { [weak self] granted, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print("❌ Reminder 權限請求失敗: \(error.localizedDescription)")
-                    completion?(false)
-                    return
-                }
-                self?.isAuthorized = granted
-                print(granted ? "✅ 已授權提醒事項" : "❌ 拒絕提醒事項權限")
-                completion?(granted)
-            }
-        }
-    }
 
     /// 確保存在可用提醒事項日曆（找不到就自建）
     private func getOrCreateReminderCalendar(named title: String) -> EKCalendar? {
@@ -89,8 +65,8 @@ final class ReminderService: ObservableObject {
     }
 
     /// 批量同步 TODO 項目到提醒事項（自帶去重）
-    func sync(todos: [TodoItem]) {
-        guard isAuthorized else {
+    private func sync(todos: [TodoItem]) {
+        guard AuthorizationManager.shared.isReminderAuthorized else {
             print("❌ 無提醒事項權限，無法同步 TODO")
             return
         }
@@ -128,9 +104,55 @@ final class ReminderService: ObservableObject {
             }
         }
     }
+    
+    /// 添加單條記錄到提醒事項
+    func syncSingleItemPublisher(todo: TodoItem) -> AnyPublisher<Bool, Error> {
+        Future { promise in
+            guard AuthorizationManager.shared.reminderAuthorizationStatus == .fullAccess else {
+                print("❌ 無提醒事項權限")
+                promise(.failure(ReminderError.notAuthorized))
+                return
+            }
+
+            guard let calendar = self.reminderCalendar ?? self.getOrCreateReminderCalendar(named: self.calendarName) else {
+                print("❌ 找不到日曆")
+                promise(.failure(ReminderError.calendarUnavailable))
+                return
+            }
+
+            let predicate = self.eventStore.predicateForReminders(in: [calendar])
+            self.eventStore.fetchReminders(matching: predicate) { reminders in
+                let existing = Set(reminders?.compactMap { $0.title } ?? [])
+                guard !existing.contains(todo.content) else {
+                    print("⚠️ 已存在：\(todo.content)")
+                    promise(.failure(ReminderError.duplicateItem))
+                    return
+                }
+
+                let reminder = EKReminder(eventStore: self.eventStore)
+                reminder.title = todo.content
+                reminder.calendar = calendar
+
+                do {
+                    try self.eventStore.save(reminder, commit: true)
+                    print("✅ 單條寫入成功：\(todo.content)")
+                    promise(.success(true))
+                } catch {
+                    print("❌ 寫入失敗：\(error)")
+                    promise(.failure(error))
+                }
+            }
+        }
+        .receive(on: RunLoop.main)
+        .eraseToAnyPublisher()
+    }
 
     /// 監聽掃描結果，自動同步提醒事項
-    func bindToTODOChanges(scanService: FileScannerService, userSettings: UserSettings) {
+    func bindToTODOChanges() {
+        
+        let scanService = FileScannerService.shared
+        let userSettings = UserSettings.shared
+        
         scanService.$todoItems
             .receive(on: DispatchQueue.main)
             .sink { [weak self] items in
@@ -138,7 +160,7 @@ final class ReminderService: ObservableObject {
                 self?.sync(todos: items)
             }
             .store(in: &subscriptions)
-
+        
         userSettings.$autoSyncToReminders
             .removeDuplicates()
             .filter { $0 == true }
@@ -146,24 +168,27 @@ final class ReminderService: ObservableObject {
                 self?.sync(todos: scanService.todoItems)
             }
             .store(in: &subscriptions)
-
+        
         if userSettings.autoSyncToReminders {
             sync(todos: scanService.todoItems)
         }
     }
     
-    private func reminderAuthorizationStatus() {
-        let status = EKEventStore.authorizationStatus(for: .reminder)
-        switch status {
-        case .fullAccess, .writeOnly:
-            break
-        case .denied, .notDetermined, .restricted:
-            if UserSettings.shared.autoSyncToReminders {
-                    UserSettings.shared.autoSyncToReminders = false
-                }
-        @unknown default:
-            break
+}
+
+enum ReminderError: LocalizedError {
+    case notAuthorized
+    case calendarUnavailable
+    case duplicateItem
+
+    var errorDescription: String? {
+        switch self {
+        case .notAuthorized:
+            return "未獲得提醒事項權限"
+        case .calendarUnavailable:
+            return "找不到有效的提醒事項日曆"
+        case .duplicateItem:
+            return "這條 TODO 已存在提醒事項中"
         }
     }
 }
-
