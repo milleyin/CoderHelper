@@ -23,7 +23,6 @@ class UserSettings: ObservableObject {
         self.scanFrequency = defaults.scanFrequency
         self.enableXcodeTracking = defaults.enableXcodeTracking
         
-//        self.checkAuthorizationStatus()
     }
     
     deinit {
@@ -73,22 +72,7 @@ class UserSettings: ObservableObject {
             }
         }
     }
-//    @Published var autoSyncToReminders: Bool = false {
-//        didSet {
-//            defaults.autoSyncToReminders = autoSyncToReminders
-//            if autoSyncToReminders, AuthorizationManager.shared.reminderAuthorizationStatus == .denied {
-//                // 用户之前拒绝过，现在又尝试开启 —— 说明用户“变卦了”
-//                // 👉 主动提示：去系统设置打开权限
-//                isShowEnableRemindersAuthorizationAlert = true
-//
-//            } else if autoSyncToReminders, !AuthorizationManager.shared.isReminderAuthorized {
-//                // 用户刚开启同步功能，但还没有系统授权 —— 初次尝试
-//                // 👉 请求系统弹授权弹窗
-//                AuthorizationManager.shared.requestReminderAccess()
-//            }
-//            
-//        }
-//    }
+    
     
     /// 扫描频率
     @Published var scanFrequency: ScanFrequency {
@@ -107,15 +91,5 @@ class UserSettings: ObservableObject {
     ///提示用户手动开启提醒事项授权
     @Published var isShowEnableRemindersAuthorizationAlert: Bool = false
     
-//    ///检查授权状态
-//    private func checkAuthorizationStatus() {
-//        AuthorizationManager.shared.$reminderAuthorizationStatus
-//            .receive(on: RunLoop.main)
-//            .sink { status in
-//                if status != .fullAccess {
-//                    self.autoSyncToReminders = false
-//                }
-//            }.store(in: &subscriptions)
-//    }
     
 }
