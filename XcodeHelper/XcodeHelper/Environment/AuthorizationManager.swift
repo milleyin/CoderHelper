@@ -21,9 +21,13 @@ final class AuthorizationManager: ObservableObject {
     var isReminderAuthorized: Bool {
         reminderAuthorizationStatus == .fullAccess
     }
+    
 
     private init() {
         self.reminderAuthorizationStatus = EKEventStore.authorizationStatus(for: .reminder)
+        if isReminderAuthorized {
+            _ = ReminderService.shared
+        }
     }
 
     /// 主動發起系統授權請求

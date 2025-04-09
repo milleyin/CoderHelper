@@ -48,8 +48,8 @@ class UserSettings: ObservableObject {
             
             switch status {
             case .fullAccess:
-                // 正常启用，不需要处理
-                break
+                // 正常启用
+                _ = ReminderService.shared
             case .denied:
                 // 已明确拒绝，不再请求授权，转为提醒用户
                 self.autoSyncToReminders = false
