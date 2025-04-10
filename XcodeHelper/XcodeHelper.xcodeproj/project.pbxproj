@@ -27,6 +27,7 @@
 		E47600E22DA10DE7001996ED /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E12DA10DE7001996ED /* UserSettings.swift */; };
 		E47600E52DA10FFB001996ED /* ScanSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E42DA10FFB001996ED /* ScanSchedulerService.swift */; };
 		E47600E72DA1199C001996ED /* ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E62DA1199C001996ED /* ReminderService.swift */; };
+		E4902C9D2DA78BEA006C5C5C /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4902C9C2DA78BEA006C5C5C /* ColorExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		E47600E12DA10DE7001996ED /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		E47600E42DA10FFB001996ED /* ScanSchedulerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSchedulerService.swift; sourceTree = "<group>"; };
 		E47600E62DA1199C001996ED /* ReminderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderService.swift; sourceTree = "<group>"; };
+		E4902C9C2DA78BEA006C5C5C /* ColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			children = (
 				E417A3822D950F39000C1604 /* UserDefaults.swift */,
 				E47600DD2DA0D378001996ED /* VisualEffectView.swift */,
+				E4902C9C2DA78BEA006C5C5C /* ColorExt.swift */,
 			);
 			path = Ext.;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E47600E52DA10FFB001996ED /* ScanSchedulerService.swift in Sources */,
+				E4902C9D2DA78BEA006C5C5C /* ColorExt.swift in Sources */,
 				E47600E02DA0D51B001996ED /* User.swift in Sources */,
 				E417A37E2D950B6B000C1604 /* SettingsWindowManager.swift in Sources */,
 				BEFCA8762D9E4CF3007B9540 /* TodoItem.swift in Sources */,

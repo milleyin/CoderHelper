@@ -37,6 +37,6 @@ class MenuViewModel: ObservableObject {
             } receiveValue: { _ in
                 
             }.store(in: &subscriptions)
-
     }
+    
 }
