@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import AppKit
+import CoreLocation
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
@@ -45,6 +46,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ScanSchedulerService.shared.start()
         //自动添加到提醒事项任务
 //        reminderService.bindToTODOChanges(scanService: scanService, userSettings: userSettings)
+        let locationPermissionManager = LocationPermissionManager()
+        locationPermissionManager.requestAccessIfNeeded()
     }
 
     @objc func togglePopover(_ sender: AnyObject?) {

@@ -14,11 +14,18 @@ class MenuViewModel: ObservableObject {
     
     @Published var isAuthorized = false
     
+    @Published var wifiSignalLevel: WiFiSignalLevel = .fair
+    
+    @Published var cpuInfo: MacCPUInfo?
+    @Published var memInfo: MacMemoryInfo?
+    
     private let eventStore = EKEventStore()
     
     private var subscriptions = Set<AnyCancellable>()
     
-    init () { }
+    init () {
+        self.getSystemInfo()
+    }
     
     deinit {
         self.subscriptions.forEach { $0.cancel() }
@@ -37,6 +44,38 @@ class MenuViewModel: ObservableObject {
             } receiveValue: { _ in
                 
             }.store(in: &subscriptions)
+    }
+    
+    private func getSystemInfo() {
+        DevelopmentKit.Network.getWiFiSignalLevelPublisher()
+//            .receive(on: RunLoop.main)
+            .sink { WiFiSignalLevel in
+                self.wifiSignalLevel = WiFiSignalLevel
+            }.store(in: &subscriptions)
+        DevelopmentKit.SysInfo.getCPUInfoPublisher(interval: 1)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log("错误: \(error)")
+                }
+            } receiveValue: { MacCPUInfo in
+                self.cpuInfo = MacCPUInfo
+            }.store(in: &subscriptions)
+        DevelopmentKit.SysInfo.getMemoryInfoPublisher()
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log(error)
+                }
+            } receiveValue: { MacMemoryInfo in
+                self.memInfo = MacMemoryInfo
+            }.store(in: &subscriptions)
+
+
     }
     
 }

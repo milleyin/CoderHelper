@@ -26,9 +26,17 @@ struct MenuView: View {
                 
             VStack {
                 HStack {
-                    SysInfoData(icon: "cpu", value: "12%")
-                    SysInfoData(icon: "memorychip", value: "43%")
-                    SysInfoData(icon: "network", value: "good")
+                    if let cpuInfo = viewModel.cpuInfo {
+                        SysInfoData(icon: "cpu", value: "\(cpuInfo.totalUsage.formatted(.number.precision(.fractionLength(1)))) %")
+                    }else {
+                        SysInfoData(icon: "cpu", value: "-- %")
+                    }
+                    if let memInfo = viewModel.memInfo {
+                        SysInfoData(icon: "memorychip", value: "\(memInfo.used.formatted(.number.precision(.fractionLength(1)))) %")
+                    }else {
+                        SysInfoData(icon: "cpu", value: "-- %")
+                    }
+                    SysInfoData(icon: "network", value: viewModel.wifiSignalLevel.rawValue)
                 }.padding()
                 Text("任务清单")
                     .font(.system(size: 18, design: .rounded))
@@ -159,10 +167,10 @@ struct SysInfoData: View {
     var body: some View {
         HStack(spacing: 1) {
             Image(systemName: icon)
-                .font(.system(size: 16))
+                .font(.system(size: 12))
                 .foregroundStyle(.white)
             Text(value)
-                .font(.system(size: 14))
+                .font(.system(size: 12))
                 .foregroundStyle(.white)
         }
     }
