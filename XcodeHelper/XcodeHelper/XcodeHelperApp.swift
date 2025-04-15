@@ -13,12 +13,20 @@ struct XcodeHelperApp: App {
     
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    init() {
+        
+    }
+//    @StateObject var scanService: FileScannerService = .shared
+    
     var body: some Scene {
-        Settings {
-            EmptyView()
-        }
+//        MenuBarExtra("Xcoder Helper", systemImage: "hammer") {
+//            MenuView()
+//                .environmentObject(scanService)
+//                .background(.ultraThinMaterial)
+//        }
+//        .menuBarExtraStyle(.window)
+        Settings {}
     }
 }
-
 
 

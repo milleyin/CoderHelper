@@ -7,28 +7,80 @@
 
 import Foundation
 import EventKit
+import Combine
+import DevelopmentKit
 
 class MenuViewModel: ObservableObject {
     
     @Published var isAuthorized = false
     
-    let eventStore = EKEventStore()
+    @Published var wifiSignalLevel: WiFiSignalLevel = .fair
+    
+    @Published var cpuInfo: MacCPUInfo?
+    @Published var memInfo: MacMemoryInfo?
+    @Published var availableDiskSpace: Int = 0
+    
+    private let eventStore = EKEventStore()
+    
+    private var subscriptions = Set<AnyCancellable>()
     
     init () {
-        requestReminderAccess()
+        self.getSystemInfo()
     }
     
-    private func requestReminderAccess() {
-        eventStore.requestFullAccessToReminders { granted, error in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print("❌ Reminder 权限请求失败: \(error.localizedDescription)")
-                    return
-                }
-                
-                self.isAuthorized = granted
-                print(granted ? "✅ 已授权访问提醒事项" : "❌ 用户拒绝提醒事项权限")
-            }
-        }
+    deinit {
+        self.subscriptions.forEach { $0.cancel() }
     }
+    ///同步单条todo到提醒事项
+    func syncSingleItem(item: TodoItem) {
+        ReminderService.shared.syncSingleItemPublisher(todo: item)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log("错误: \(error)")
+                }
+            } receiveValue: { _ in
+                
+            }.store(in: &subscriptions)
+    }
+    
+    private func getSystemInfo() {
+        DevelopmentKit.Network.getWiFiSignalLevelPublisher()
+//            .receive(on: RunLoop.main)
+            .sink { WiFiSignalLevel in
+                self.wifiSignalLevel = WiFiSignalLevel
+            }.store(in: &subscriptions)
+        DevelopmentKit.SysInfo.getCPUInfoPublisher(interval: 1)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log("错误: \(error)")
+                }
+            } receiveValue: { MacCPUInfo in
+                self.cpuInfo = MacCPUInfo
+            }.store(in: &subscriptions)
+        DevelopmentKit.SysInfo.getMemoryInfoPublisher()
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log(error)
+                }
+            } receiveValue: { MacMemoryInfo in
+                self.memInfo = MacMemoryInfo
+            }.store(in: &subscriptions)
+        DevelopmentKit.SysInfo.getAvailableDiskSpacePublisher()
+            .sink { availableDisk in
+                self.availableDiskSpace = availableDisk
+            }.store(in: &subscriptions)
+
+
+    }
+    
 }
