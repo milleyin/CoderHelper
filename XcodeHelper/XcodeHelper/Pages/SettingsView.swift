@@ -152,13 +152,13 @@ fileprivate struct AutoSyncView: View {
             HStack {
                 Image(systemName: "arrow.down.left.arrow.up.right.circle")
                     .font(.system(.headline))
-                Text("自動同步").font(.headline)
+                Text("自動同步").font(.headline).foregroundStyle(.white)
                 Spacer()
             }
             //同步到提醒事项
             Toggle(isOn: $userSettings.autoSyncToReminders) {
                 HStack {
-                    Text("自動同步TODO到Apple提醒事項")
+                    Text("自動同步TODO到Apple提醒事項").foregroundStyle(.white)
                     Spacer()
                 }
             }.toggleStyle(.switch)
@@ -176,19 +176,24 @@ fileprivate struct ScanSettingView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("掃描頻率").font(.headline)
+                Text("掃描頻率").font(.headline).foregroundStyle(.white)
                 Spacer()
             }
             Picker("", selection: $userSettings.scanFrequency) {
                 ForEach(ScanFrequency.allCases) { frequency in
-                    Text(frequency.displayName).tag(frequency)
+                    Text(frequency.displayName)
+                        .tag(frequency)
+                        .tint(.white)
                 }
-            }.pickerStyle(.segmented)
+            }
+            
+            .pickerStyle(.segmented)
             
             HStack {
                 Toggle(isOn: $userSettings.enableXcodeTracking) {
                     HStack {
                         Text("Xcode 项目退出后自动扫描")
+                            .foregroundStyle(.white)
                         Spacer()
                     }.padding(.leading, 10)
                 }.toggleStyle(.switch)
