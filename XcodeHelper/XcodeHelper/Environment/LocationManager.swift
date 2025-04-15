@@ -1,5 +1,5 @@
 //
-//  LocationPermissionManager.swift
+//  LocationManager.swift
 //  XcodeHelper
 //
 //  Created by mille on 2025/4/12.
@@ -9,12 +9,16 @@ import Foundation
 import CoreLocation
 import AppKit
 
-class LocationPermissionManager: NSObject, CLLocationManagerDelegate {
+class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
+    
+    static let shared = LocationManager()
+    
     private let locationManager = CLLocationManager()
     
     override init() {
         super.init()
         locationManager.delegate = self
+        requestAccessIfNeeded()
     }
 
     func requestAccessIfNeeded() {
