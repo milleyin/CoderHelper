@@ -32,7 +32,18 @@ struct SettingsView: View {
         } message: {
             Text("請前往系統設置開啟提醒事項權限")
         }
-
+        .background(
+            LinearGradient(
+                gradient: Gradient(stops: [
+                    .init(color: .init(hex: "1E003D"), location: 0.0),    // 深紫（上左）
+                    .init(color: .init(hex: "3C1874"), location: 0.4),    // 蓝紫（中部偏上）
+                    .init(color: .init(hex: "2B1D52"), location: 0.7),    // 暗蓝（底部过渡）
+                    .init(color: .init(hex: "14002D"), location: 1.0)     // 接近黑的深紫
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        )
     }
 }
 
@@ -79,7 +90,7 @@ fileprivate struct ScanPathView: View {
                 Text("掃描路徑")
                     .font(.system(.headline))
                 Spacer()
-            }
+            }.foregroundStyle(Color.white)
             ZStack {
                 RoundedRectangle(cornerRadius: 2)
                     .opacity(0.05)
@@ -99,9 +110,11 @@ fileprivate struct ScanPathView: View {
                                         viewModel.removePath(path.path)
                                     } label: {
                                         Image(systemName: "trash")
+                                            .foregroundStyle(Color.white)
                                     }
                                     .buttonStyle(.plain)
                                     Text(path.path)
+                                        .foregroundStyle(Color.white)
                                         .lineLimit(1)
                                         .truncationMode(.middle)
                                     Spacer()

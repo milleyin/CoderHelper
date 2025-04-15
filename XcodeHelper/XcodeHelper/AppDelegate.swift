@@ -26,10 +26,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let scanService = FileScannerService.shared
         let userSettings = UserSettings.shared
         let authorizationManager = AuthorizationManager.shared
+        let locationManager = LocationManager.shared
         let menuView = MenuView()
             .environmentObject(scanService)
             .environmentObject(userSettings)
             .environmentObject(authorizationManager)
+            .environmentObject(locationManager)
         let hostingController = NSHostingController(rootView: menuView)
         
         // 设置透明背景
@@ -46,8 +48,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ScanSchedulerService.shared.start()
         //自动添加到提醒事项任务
 //        reminderService.bindToTODOChanges(scanService: scanService, userSettings: userSettings)
-        let locationPermissionManager = LocationPermissionManager()
-        locationPermissionManager.requestAccessIfNeeded()
+//        let locationPermissionManager = LocationPermissionManager()
+//        locationPermissionManager.requestAccessIfNeeded()
     }
 
     @objc func togglePopover(_ sender: AnyObject?) {
