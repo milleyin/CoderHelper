@@ -26,12 +26,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let scanService = FileScannerService.shared
         let userSettings = UserSettings.shared
         let authorizationManager = AuthorizationManager.shared
-        let locationManager = LocationManager.shared
+//        let locationManager = LocationManager.shared
         let menuView = MenuView()
             .environmentObject(scanService)
             .environmentObject(userSettings)
             .environmentObject(authorizationManager)
-            .environmentObject(locationManager)
+//            .environmentObject(locationManager)
         let hostingController = NSHostingController(rootView: menuView)
         
         // 设置透明背景
