@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         hostingController.view.layer?.masksToBounds = true
 
         popover.contentViewController = hostingController
-        popover.contentSize = NSSize(width: 350, height: 400)
+        popover.contentSize = NSSize(width: 350, height: 600)
         popover.behavior = .transient
         
         //定时扫描任务

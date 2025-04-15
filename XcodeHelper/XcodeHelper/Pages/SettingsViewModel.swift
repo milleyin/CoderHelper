@@ -25,6 +25,8 @@ class SettingsViewModel: ObservableObject {
 //TODO: 测试todo扫描功能2
 //TODO: 测试todo扫描功能3
 //TODO: 测试todo扫描功能4
+//TODO: 测试todo扫描功能4
+//TODO: 测试todo扫描功能4
 
 //MARK: - 路径
 extension SettingsViewModel {

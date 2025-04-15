@@ -6,7 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/milleyin/DevelopmentKit.git",
       "state" : {
-        "revision" : "0988c8836bf7441413ddfd56ae3437119276cfa3"
+        "branch" : "Dev",
+        "revision" : "015711106520628bc57f0f03b792a8ba9db5f237"
       }
     }
   ],

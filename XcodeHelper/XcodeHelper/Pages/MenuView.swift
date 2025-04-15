@@ -36,15 +36,15 @@ struct MenuView: View {
                     }else {
                         SysInfoData(icon: "cpu", value: "-- %")
                     }
+                    SysInfoData(icon: "internaldrive", value: "\(viewModel.availableDiskSpace) GB")
                     SysInfoData(icon: "network", value: viewModel.wifiSignalLevel.rawValue)
                 }.padding()
-                Text("任务清单")
-                    .font(.system(size: 18, design: .rounded))
-                    .foregroundStyle(.white)
-                    .bold()
-                Text(userSettings.storedPaths.isEmpty ? "你先去設置裡加個項目路徑唄，\n不然我咋幫你弄 TODO 啊？" : "下面是你還沒做完的事")
-                    .font(.body)
-                    .foregroundStyle(.white)
+                VStack {
+                    Text("任务清单").font(.largeTitle.bold())
+                        
+                    Text(userSettings.storedPaths.isEmpty ? "你先去設置裡加個項目路徑唄，\n不然我咋幫你弄 TODO 啊？" : "🐂牛馬，下面是你還沒做完的事")
+                        .font(.body)
+                }.foregroundStyle(.white)
                 if userSettings.storedPaths.isEmpty {
                     Button {
                         openSettings()
@@ -77,6 +77,7 @@ struct MenuView: View {
                     } label: {
                         Image(systemName: "gearshape")
                             .font(.title2)
+                            .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
                 }
             }
@@ -111,7 +112,7 @@ struct MenuView: View {
     MenuView()
         .environmentObject(FileScannerService.shared)
         .environmentObject(UserSettings.shared)
-        .frame(width: 350, height: 400)
+        .frame(width: 350, height: 600)
 }
 
 
@@ -145,11 +146,15 @@ fileprivate struct TodoContentView: View {
                                 viewModel.syncSingleItem(item: item)
                             }
                         }label: {
-                            Image(systemName: "checklist")
-                        }.help("添加到提醒事项")
+                            Image(systemName: "checklist").foregroundStyle(Color.white)
+                        }
+                        .buttonStyle(.borderless)
+                        .help("添加到提醒事项")
+                        
 
-                    }.padding()
-                        .background(Color.gray.opacity(0.07), in: .rect(cornerRadius: 10))
+                    }
+                    .padding()
+                    .background(Color.gray.opacity(0.07), in: .rect(cornerRadius: 10))
                 }
             }
         }

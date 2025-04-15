@@ -18,6 +18,7 @@ class MenuViewModel: ObservableObject {
     
     @Published var cpuInfo: MacCPUInfo?
     @Published var memInfo: MacMemoryInfo?
+    @Published var availableDiskSpace: Int = 0
     
     private let eventStore = EKEventStore()
     
@@ -73,6 +74,10 @@ class MenuViewModel: ObservableObject {
                 }
             } receiveValue: { MacMemoryInfo in
                 self.memInfo = MacMemoryInfo
+            }.store(in: &subscriptions)
+        DevelopmentKit.SysInfo.getAvailableDiskSpacePublisher()
+            .sink { availableDisk in
+                self.availableDiskSpace = availableDisk
             }.store(in: &subscriptions)
 
 
