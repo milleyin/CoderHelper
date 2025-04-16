@@ -86,19 +86,21 @@ fileprivate struct ScanPathView: View {
         VStack {
             HStack {
                 Image(systemName: "folder.fill")
-                    .font(.system(.headline))
+                    .font(.system(.largeTitle))
+                    .foregroundStyle(.orange)
                 Text("掃描路徑")
-                    .font(.system(.headline))
+                    .font(.system(.largeTitle))
                 Spacer()
             }.foregroundStyle(Color.white)
             ZStack {
-                RoundedRectangle(cornerRadius: 2)
-                    .opacity(0.05)
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.init(hex: "#091D31"))
+                    .opacity(0.2)
                     .overlay {
-                        RoundedRectangle(cornerRadius: 2)
-                            .stroke(Color.gray)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                     }
-                    .frame(width: 300, height: 100)
+                    .frame(width: 500)
                 if userSettings.storedPaths.isEmpty {
                     Text("尚未添加任何路徑").opacity(0.5)
                 }else {
@@ -123,7 +125,8 @@ fileprivate struct ScanPathView: View {
                         }
                     }
                     .padding()
-                    .frame(height: 100)
+                    .frame(maxHeight: 160)
+//                    .frame(height: 160)
                     
                 }
             }
@@ -152,6 +155,7 @@ fileprivate struct AutoSyncView: View {
             HStack {
                 Image(systemName: "arrow.down.left.arrow.up.right.circle")
                     .font(.system(.headline))
+                    
                 Text("自動同步").font(.headline).foregroundStyle(.white)
                 Spacer()
             }

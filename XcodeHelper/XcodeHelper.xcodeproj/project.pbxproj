@@ -415,6 +415,7 @@
 				INFOPLIST_KEY_NSLocationUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "用于将 Xcode 的 TODO 同步到提醒事项";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -454,6 +455,7 @@
 				INFOPLIST_KEY_NSLocationUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "用于将 Xcode 的 TODO 同步到提醒事项";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
