@@ -32,18 +32,18 @@ struct SettingsView: View {
         } message: {
             Text("請前往系統設置開啟提醒事項權限")
         }
-        .background(
-            LinearGradient(
-                gradient: Gradient(stops: [
-                    .init(color: .init(hex: "1E003D"), location: 0.0),    // 深紫（上左）
-                    .init(color: .init(hex: "3C1874"), location: 0.4),    // 蓝紫（中部偏上）
-                    .init(color: .init(hex: "2B1D52"), location: 0.7),    // 暗蓝（底部过渡）
-                    .init(color: .init(hex: "14002D"), location: 1.0)     // 接近黑的深紫
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+//        .background(
+//            LinearGradient(
+//                gradient: Gradient(stops: [
+//                    .init(color: .init(hex: "1E003D"), location: 0.0),    // 深紫（上左）
+//                    .init(color: .init(hex: "3C1874"), location: 0.4),    // 蓝紫（中部偏上）
+//                    .init(color: .init(hex: "2B1D52"), location: 0.7),    // 暗蓝（底部过渡）
+//                    .init(color: .init(hex: "14002D"), location: 1.0)     // 接近黑的深紫
+//                ]),
+//                startPoint: .topLeading,
+//                endPoint: .bottomTrailing
+//            )
+//        )
     }
 }
 
@@ -61,16 +61,12 @@ fileprivate struct Settings: View {
         VStack(spacing: 20) {
             
             ScanPathView(viewModel: viewModel)
-            
             Divider()
-            
             AutoSyncView(viewModel: viewModel)
-            
             Divider()
-            
             ScanSettingView(viewModel: viewModel)
-            
-            
+            Divider()
+            OtherSettingView()
         }
     }
 }
@@ -108,18 +104,28 @@ fileprivate struct ScanPathView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             ForEach(userSettings.storedPaths, id: \.id) { path in
                                 HStack {
-                                    Button {
-                                        viewModel.removePath(path.path)
-                                    } label: {
-                                        Image(systemName: "trash")
-                                            .foregroundStyle(Color.white)
-                                    }
-                                    .buttonStyle(.plain)
+                                    
                                     Text(path.path)
                                         .foregroundStyle(Color.white)
                                         .lineLimit(1)
                                         .truncationMode(.middle)
                                     Spacer()
+                                    Button {
+                                        viewModel.removePath(path.path)
+                                    } label: {
+                                        Image(systemName: "trash")
+                                            .font(.system(size: 16, design: .rounded))
+                                            .foregroundStyle(Color.white)
+                                    }
+                                    .buttonStyle(.plain)
+                                    Button {
+                                        viewModel.addPath()
+                                    } label: {
+                                        Image(systemName: "plus.circle")
+                                            .font(.system(size: 16, design: .rounded))
+                                            .foregroundStyle(Color.white)
+                                    }.buttonStyle(.plain)
+
                                 }
                             }
                         }
@@ -130,16 +136,16 @@ fileprivate struct ScanPathView: View {
                     
                 }
             }
-            HStack {
-                Spacer()
-                Button {
-                    viewModel.addPath()
-                } label: {
-                    Image(systemName: "folder.badge.plus")
-                    Text("添加路徑")
-                }.buttonStyle(.borderedProminent)
-                
-            }
+//            HStack {
+//                Spacer()
+//                Button {
+//                    viewModel.addPath()
+//                } label: {
+//                    Image(systemName: "folder.badge.plus")
+//                    Text("添加路徑")
+//                }.buttonStyle(.borderedProminent)
+//                
+//            }
         }
     }
 }
@@ -154,9 +160,9 @@ fileprivate struct AutoSyncView: View {
         VStack {
             HStack {
                 Image(systemName: "arrow.down.left.arrow.up.right.circle")
-                    .font(.system(.headline))
-                    
-                Text("自動同步").font(.headline).foregroundStyle(.white)
+                    .font(.system(.largeTitle))
+                    .foregroundStyle(.yellow)
+                Text("自動同步").font(.largeTitle).foregroundStyle(.white)
                 Spacer()
             }
             //同步到提醒事项
@@ -180,7 +186,12 @@ fileprivate struct ScanSettingView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("掃描頻率").font(.headline).foregroundStyle(.white)
+                Image(systemName: "calendar.day.timeline.left")
+                    .font(.largeTitle)
+                    .foregroundStyle(.red)
+                Text("掃描頻率")
+                    .font(.largeTitle)
+                    .foregroundStyle(.white)
                 Spacer()
             }
             Picker("", selection: $userSettings.scanFrequency) {
@@ -193,10 +204,31 @@ fileprivate struct ScanSettingView: View {
             
             .pickerStyle(.segmented)
             
+            
+        }
+    }
+}
+
+///其他功能设置
+fileprivate struct OtherSettingView: View {
+    
+    @EnvironmentObject var userSettings: UserSettings
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: "ellipsis.curlybraces")
+                    .font(.largeTitle)
+                    .foregroundStyle(.green)
+                Text("其他设置")
+                    .font(.largeTitle)
+                    .foregroundStyle(.white)
+                Spacer()
+            }
             HStack {
                 Toggle(isOn: $userSettings.enableXcodeTracking) {
                     HStack {
-                        Text("Xcode 项目退出后自动扫描")
+                        Text("Xcode 项目退出后自动扫描（开发中...）")
                             .foregroundStyle(.white)
                         Spacer()
                     }.padding(.leading, 10)

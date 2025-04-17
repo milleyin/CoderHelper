@@ -399,7 +399,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025064;
+				CURRENT_PROJECT_VERSION = 2025069;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
 				DEVELOPMENT_TEAM = 2U974MU9D9;
@@ -415,7 +415,6 @@
 				INFOPLIST_KEY_NSLocationUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "用于将 Xcode 的 TODO 同步到提醒事项";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -440,7 +439,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025064;
+				CURRENT_PROJECT_VERSION = 2025069;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -455,7 +454,6 @@
 				INFOPLIST_KEY_NSLocationUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "用于将 Xcode 的 TODO 同步到提醒事项";
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
