@@ -43,6 +43,7 @@ struct MenuView: View {
                     Text("任务清单").font(.largeTitle.bold())
                         
                     Text(userSettings.storedPaths.isEmpty ? "你先去設置裡加個項目路徑唄，\n不然我咋幫你弄 TODO 啊？" : "🐂牛馬，下面是你還沒做完的事")
+                        .multilineTextAlignment(.center)
                         .font(.body)
                 }.foregroundStyle(.white)
                 if userSettings.storedPaths.isEmpty {
@@ -53,7 +54,7 @@ struct MenuView: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.clear.opacity(0.1))
                                 .overlay {
-                                    RoundedRectangle(cornerRadius: 50)
+                                    RoundedRectangle(cornerRadius: 20)
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
                                         .foregroundStyle(.gray.opacity(0.5))
                                 }
@@ -70,7 +71,7 @@ struct MenuView: View {
                     TodoContentView(viewModel: viewModel)
                 }
                 Spacer()
-                Divider().padding(.vertical)
+                Divider().padding(.vertical, 5)
                 HStack {
                     Button {
                         openSettings()

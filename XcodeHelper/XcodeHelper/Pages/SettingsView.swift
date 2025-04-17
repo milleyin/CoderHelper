@@ -97,9 +97,25 @@ fileprivate struct ScanPathView: View {
                             .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                     }
                     .frame(width: 500)
-                    .frame(minHeight: 60)
+                    .frame(minHeight: 100)
                 if userSettings.storedPaths.isEmpty {
-                    Text("尚未添加任何路徑").opacity(0.5)
+                    
+                    VStack {
+                        Text("尚未添加任何路徑").opacity(0.5)
+                        Button {
+                            viewModel.addPath()
+                        } label: {
+                            Text("点击添加")
+                                .padding(.vertical, 3)
+                                .padding(.horizontal, 12)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .stroke(Color.gray, style: StrokeStyle(lineWidth: 1, dash: [4]))
+                                }
+                        }.buttonStyle(.borderless)
+
+                    }
+                    
                 }else {
                     ScrollView(showsIndicators: true) {
                         VStack(alignment: .leading, spacing: 10) {
