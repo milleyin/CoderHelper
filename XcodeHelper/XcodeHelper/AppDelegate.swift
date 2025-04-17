@@ -15,6 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var popover = NSPopover()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        
         // 设置菜单栏图标
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = statusItem?.button {
@@ -26,10 +27,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let scanService = FileScannerService.shared
         let userSettings = UserSettings.shared
         let authorizationManager = AuthorizationManager.shared
+//        let locationManager = LocationManager.shared
         let menuView = MenuView()
+            .preferredColorScheme(.dark)
             .environmentObject(scanService)
             .environmentObject(userSettings)
             .environmentObject(authorizationManager)
+//            .environmentObject(locationManager)
         let hostingController = NSHostingController(rootView: menuView)
         
         // 设置透明背景
@@ -46,8 +50,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ScanSchedulerService.shared.start()
         //自动添加到提醒事项任务
 //        reminderService.bindToTODOChanges(scanService: scanService, userSettings: userSettings)
-        let locationPermissionManager = LocationPermissionManager()
-        locationPermissionManager.requestAccessIfNeeded()
+//        let locationPermissionManager = LocationPermissionManager()
+//        locationPermissionManager.requestAccessIfNeeded()
     }
 
     @objc func togglePopover(_ sender: AnyObject?) {

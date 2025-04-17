@@ -15,7 +15,7 @@ class SettingsWindowManager {
 
     func showSettingsWindow<Content: View>(@ViewBuilder content: () -> Content) {
         if window == nil {
-            let hostingController = NSHostingController(rootView: content())
+            let hostingController = NSHostingController(rootView: content().preferredColorScheme(.dark))
             window = NSWindow(
                 contentViewController: hostingController
             )
@@ -24,6 +24,7 @@ class SettingsWindowManager {
             window?.title = "设置"
             window?.isReleasedWhenClosed = false
             window?.level = .floating
+            
             
             // 自适应内容尺寸
             window?.contentView?.layoutSubtreeIfNeeded()

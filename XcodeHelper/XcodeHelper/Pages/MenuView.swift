@@ -21,8 +21,8 @@ struct MenuView: View {
 //            VisualEffectView(material: .hudWindow, blendingMode: .behindWindow, state: .active, cornerRadius: 12)
 //            .edgesIgnoringSafeArea(.all)
 //            .opacity(0.5)
-            RoundedRectangle(cornerRadius: 12)
-                .foregroundStyle(.gray.opacity(0.2))
+//            RoundedRectangle(cornerRadius: 12)
+//                .foregroundStyle(.gray.opacity(0.2))
                 
             VStack {
                 HStack {
@@ -43,6 +43,7 @@ struct MenuView: View {
                     Text("任务清单").font(.largeTitle.bold())
                         
                     Text(userSettings.storedPaths.isEmpty ? "你先去設置裡加個項目路徑唄，\n不然我咋幫你弄 TODO 啊？" : "🐂牛馬，下面是你還沒做完的事")
+                        .multilineTextAlignment(.center)
                         .font(.body)
                 }.foregroundStyle(.white)
                 if userSettings.storedPaths.isEmpty {
@@ -53,7 +54,7 @@ struct MenuView: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.clear.opacity(0.1))
                                 .overlay {
-                                    RoundedRectangle(cornerRadius: 50)
+                                    RoundedRectangle(cornerRadius: 20)
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
                                         .foregroundStyle(.gray.opacity(0.5))
                                 }
@@ -70,8 +71,8 @@ struct MenuView: View {
                     TodoContentView(viewModel: viewModel)
                 }
                 Spacer()
+                Divider().padding(.vertical, 5)
                 HStack {
-                    Spacer()
                     Button {
                         openSettings()
                     } label: {
@@ -79,23 +80,32 @@ struct MenuView: View {
                             .font(.title2)
                             .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
+                    Spacer()
+                    Button {
+                        NSApp.terminate(nil)
+                    } label: {
+                        Image(systemName: "arrow.forward.square")
+                            .font(.title2)
+                            .foregroundStyle(.white)
+                    }.buttonStyle(.borderless)
+
                 }
             }
             .padding()
         }
         .padding()
-        .background(
-            LinearGradient(
-                gradient: Gradient(stops: [
-                    .init(color: .init(hex: "1E003D"), location: 0.0),    // 深紫（上左）
-                    .init(color: .init(hex: "3C1874"), location: 0.4),    // 蓝紫（中部偏上）
-                    .init(color: .init(hex: "2B1D52"), location: 0.7),    // 暗蓝（底部过渡）
-                    .init(color: .init(hex: "14002D"), location: 1.0)     // 接近黑的深紫
-                ]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+//        .background(
+//            LinearGradient(
+//                gradient: Gradient(stops: [
+//                    .init(color: .init(hex: "1E003D"), location: 0.0),    // 深紫（上左）
+//                    .init(color: .init(hex: "3C1874"), location: 0.4),    // 蓝紫（中部偏上）
+//                    .init(color: .init(hex: "2B1D52"), location: 0.7),    // 暗蓝（底部过渡）
+//                    .init(color: .init(hex: "14002D"), location: 1.0)     // 接近黑的深紫
+//                ]),
+//                startPoint: .topLeading,
+//                endPoint: .bottomTrailing
+//            )
+//        )
     }
     
     private func openSettings() {
@@ -125,7 +135,7 @@ fileprivate struct TodoContentView: View {
     @EnvironmentObject var userSettings: UserSettings
     
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack {
                 ForEach(self.scanService.todoItems, id: \.id) { item in
                     HStack {
@@ -173,10 +183,10 @@ struct SysInfoData: View {
         HStack(spacing: 1) {
             Image(systemName: icon)
                 .font(.system(size: 12))
-                .foregroundStyle(.white)
+//                .foregroundStyle(.white)
             Text(value)
                 .font(.system(size: 12))
-                .foregroundStyle(.white)
+//                .foregroundStyle(.white)
         }
     }
 }
