@@ -42,7 +42,7 @@ struct MenuView: View {
                     }
                     HStack {
                         SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
-                        SysInfoData(icon: "arrow.down.left", value: viewModel.wifiUp)
+                        SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
                     }
                 }.padding(2)
                 VStack {
