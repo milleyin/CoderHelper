@@ -25,20 +25,26 @@ struct MenuView: View {
 //                .foregroundStyle(.gray.opacity(0.2))
                 
             VStack {
-                HStack {
-                    if let cpuInfo = viewModel.cpuInfo {
-                        SysInfoData(icon: "cpu", value: "\(cpuInfo.totalUsage.formatted(.number.precision(.fractionLength(1)))) %")
-                    }else {
-                        SysInfoData(icon: "cpu", value: "-- %")
+                VStack(spacing: 6) {
+                    HStack {
+                        if let cpuInfo = viewModel.cpuInfo {
+                            SysInfoData(icon: "cpu", value: "\(cpuInfo.totalUsage.formatted(.number.precision(.fractionLength(1)))) %")
+                        }else {
+                            SysInfoData(icon: "cpu", value: "-- %")
+                        }
+                        if let memInfo = viewModel.memInfo {
+                            SysInfoData(icon: "memorychip", value: "\(memInfo.used.formatted(.number.precision(.fractionLength(1)))) %")
+                        }else {
+                            SysInfoData(icon: "cpu", value: "-- %")
+                        }
+                        SysInfoData(icon: "internaldrive", value: "\(viewModel.availableDiskSpace) GB")
+                        
                     }
-                    if let memInfo = viewModel.memInfo {
-                        SysInfoData(icon: "memorychip", value: "\(memInfo.used.formatted(.number.precision(.fractionLength(1)))) %")
-                    }else {
-                        SysInfoData(icon: "cpu", value: "-- %")
+                    HStack {
+                        SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
+                        SysInfoData(icon: "arrow.down.left", value: viewModel.wifiUp)
                     }
-                    SysInfoData(icon: "internaldrive", value: "\(viewModel.availableDiskSpace) GB")
-                    SysInfoData(icon: "network", value: viewModel.wifiSignalLevel.rawValue)
-                }.padding()
+                }.padding(2)
                 VStack {
                     Text("任务清单").font(.largeTitle.bold())
                         

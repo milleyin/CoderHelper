@@ -13,8 +13,11 @@ import DevelopmentKit
 class MenuViewModel: ObservableObject {
     
     @Published var isAuthorized = false
-    
+    //目前这个东西只能在开发模式才有效
     @Published var wifiSignalLevel: WiFiSignalLevel = .fair
+    
+    @Published var wifiUp: String = ""
+    @Published var wifiDown: String = ""
     
     @Published var cpuInfo: MacCPUInfo?
     @Published var memInfo: MacMemoryInfo?
@@ -53,6 +56,12 @@ class MenuViewModel: ObservableObject {
             .sink { WiFiSignalLevel in
                 self.wifiSignalLevel = WiFiSignalLevel
             }.store(in: &subscriptions)
+        DevelopmentKit.Network.getSystemNetworkThroughputPublisher(interval: 1)
+            .sink { value in
+                self.wifiDown = self.formatNetworkSpeed(value.receivedBytesPerSec)
+                self.wifiUp = self.formatNetworkSpeed(value.sentBytesPerSec)
+            }.store(in: &subscriptions)
+
         DevelopmentKit.SysInfo.getCPUInfoPublisher(interval: 1)
             .sink { completion in
                 switch completion {
@@ -80,7 +89,20 @@ class MenuViewModel: ObservableObject {
                 self.availableDiskSpace = availableDisk
             }.store(in: &subscriptions)
 
+    }
+    ///网速格式化函数
+    private func formatNetworkSpeed(_ bytePerSecond: UInt64) -> String {
+        let doubleValue = Double(bytePerSecond)
 
+        if doubleValue >= 1_048_576 {
+            let mbps = doubleValue / 1_048_576
+            return String(format: "%.2f MB/s", mbps)
+        } else if doubleValue >= 1024 {
+            let kbps = doubleValue / 1024
+            return String(format: "%.0f KB/s", kbps)
+        } else {
+            return "\(bytePerSecond) B/s"
+        }
     }
     
 }
