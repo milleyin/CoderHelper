@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import LaunchAtLogin
 import DevelopmentKit
 
 struct SettingsView: View {
@@ -241,6 +242,15 @@ fileprivate struct OtherSettingView: View {
                     .font(.largeTitle)
                     .foregroundStyle(.white)
                 Spacer()
+            }
+            HStack {
+                LaunchAtLogin.Toggle(){
+                    HStack {
+                        Text("开机自动启动")
+                            .foregroundStyle(.white)
+                        Spacer()
+                    }.padding(.leading, 10)
+                }.toggleStyle(.switch)
             }
             HStack {
                 Toggle(isOn: $userSettings.enableXcodeTracking) {
