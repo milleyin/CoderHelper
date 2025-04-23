@@ -18,12 +18,6 @@ struct MenuView: View {
     
     var body: some View {
         ZStack {
-//            VisualEffectView(material: .hudWindow, blendingMode: .behindWindow, state: .active, cornerRadius: 12)
-//            .edgesIgnoringSafeArea(.all)
-//            .opacity(0.5)
-//            RoundedRectangle(cornerRadius: 12)
-//                .foregroundStyle(.gray.opacity(0.2))
-                
             VStack {
                 VStack(spacing: 6) {
                     HStack {
