@@ -8,6 +8,7 @@
 import Foundation
 import EventKit
 import Combine
+import AppKit
 import DevelopmentKit
 
 class MenuViewModel: ObservableObject {
@@ -48,6 +49,37 @@ class MenuViewModel: ObservableObject {
             } receiveValue: { _ in
                 
             }.store(in: &subscriptions)
+    }
+    
+    ///打开项目
+    func openProject(at projectPath: String) {
+        guard let secure = UserSettings.shared.storedPaths.first(where: { projectPath.hasPrefix($0.path) }) else {
+            print("❌ 找不到對應的 SecurePath")
+            return
+        }
+        
+        do {
+            var isStale = false
+            let securedURL = try URL(
+                resolvingBookmarkData: secure.bookmarkData,
+                options: [.withSecurityScope],
+                relativeTo: nil,
+                bookmarkDataIsStale: &isStale
+            )
+            
+            guard securedURL.startAccessingSecurityScopedResource() else {
+                print("❌ 無法訪問 SecurePath")
+                return
+            }
+            
+            defer { securedURL.stopAccessingSecurityScopedResource() }
+            
+            let fileURL = URL(fileURLWithPath: projectPath)
+            NSWorkspace.shared.open(fileURL)
+            
+        } catch {
+            print("❌ 無法解析 SecurePath：\(error)")
+        }
     }
     
     private func getSystemInfo() {

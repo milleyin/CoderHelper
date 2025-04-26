@@ -33,30 +33,39 @@ extension SettingsViewModel {
     ///添加路径
     func addPath() {
         let panel = NSOpenPanel()
+        panel.title = "選擇你的項目文件夾，可選包含多個項目的父級文件夾"
         panel.canChooseDirectories = true
         panel.canChooseFiles = false
         panel.allowsMultipleSelection = false
-        panel.prompt = "選擇資料夾"
         
         if panel.runModal() == .OK, let selectedURL = panel.url {
             do {
                 let standardizedURL = selectedURL.standardizedFileURL
+                
+                // 這裡生成 SecurityScopedBookmark
                 let bookmarkData = try standardizedURL.bookmarkData(
                     options: .withSecurityScope,
                     includingResourceValuesForKeys: nil,
                     relativeTo: nil
                 )
                 
-                let newSecurePath = SecurePath(path: standardizedURL.path, bookmarkData: bookmarkData)
+                // 假訪問一次，系統記錄授權
+                var isStale = false
+                let accessURL = try URL(resolvingBookmarkData: bookmarkData, options: [.withSecurityScope], relativeTo: nil, bookmarkDataIsStale: &isStale)
                 
-                if !UserSettings.shared.storedPaths.contains(where: { $0.path == newSecurePath.path }) {
+                if accessURL.startAccessingSecurityScopedResource() {
+                    defer { accessURL.stopAccessingSecurityScopedResource() }
+                    
+                    print("✅ 成功訪問並授權：\(standardizedURL.path)")
+                    
+                    // 保存 SecurePath
+                    let newSecurePath = SecurePath(path: standardizedURL.path, bookmarkData: bookmarkData)
                     UserSettings.shared.storedPaths.append(newSecurePath)
                 } else {
-                    print("⚠️ 該路徑已存在")
+                    print("❌ 無法訪問選定路徑")
                 }
-                
             } catch {
-                print("Bookmark 儲存失敗：\(error)")
+                print("❌ 授權過程出錯：\(error)")
             }
         }
     }
