@@ -29,7 +29,6 @@
 		E47600E52DA10FFB001996ED /* ScanSchedulerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E42DA10FFB001996ED /* ScanSchedulerService.swift */; };
 		E47600E72DA1199C001996ED /* ReminderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600E62DA1199C001996ED /* ReminderService.swift */; };
 		E4902C9D2DA78BEA006C5C5C /* ColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4902C9C2DA78BEA006C5C5C /* ColorExt.swift */; };
-		E4C86DC82DB3810F00BF1F9B /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E4C86DC72DB3810F00BF1F9B /* LaunchAtLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,7 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4C86DC82DB3810F00BF1F9B /* LaunchAtLogin in Frameworks */,
 				BEFCA8742D9E44C2007B9540 /* DevelopmentKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,7 +184,6 @@
 			name = XcodeHelper;
 			packageProductDependencies = (
 				BEFCA8732D9E44C2007B9540 /* DevelopmentKit */,
-				E4C86DC72DB3810F00BF1F9B /* LaunchAtLogin */,
 			);
 			productName = XcodeHelper;
 			productReference = E41F03772D90503900906DDB /* XcodeHelper.app */;
@@ -218,7 +215,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				BEFCA8722D9E44C2007B9540 /* XCRemoteSwiftPackageReference "DevelopmentKit" */,
-				E4C86DC62DB3810F00BF1F9B /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E41F03782D90503900906DDB /* Products */;
@@ -403,7 +399,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025074;
+				CURRENT_PROJECT_VERSION = 2025075;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
 				DEVELOPMENT_TEAM = 2U974MU9D9;
@@ -443,7 +439,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025074;
+				CURRENT_PROJECT_VERSION = 2025075;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -504,14 +500,6 @@
 				kind = branch;
 			};
 		};
-		E4C86DC62DB3810F00BF1F9B /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -519,11 +507,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BEFCA8722D9E44C2007B9540 /* XCRemoteSwiftPackageReference "DevelopmentKit" */;
 			productName = DevelopmentKit;
-		};
-		E4C86DC72DB3810F00BF1F9B /* LaunchAtLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E4C86DC62DB3810F00BF1F9B /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
-			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

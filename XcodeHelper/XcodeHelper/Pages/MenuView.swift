@@ -18,12 +18,6 @@ struct MenuView: View {
     
     var body: some View {
         ZStack {
-//            VisualEffectView(material: .hudWindow, blendingMode: .behindWindow, state: .active, cornerRadius: 12)
-//            .edgesIgnoringSafeArea(.all)
-//            .opacity(0.5)
-//            RoundedRectangle(cornerRadius: 12)
-//                .foregroundStyle(.gray.opacity(0.2))
-                
             VStack {
                 VStack(spacing: 6) {
                     HStack {
@@ -47,11 +41,7 @@ struct MenuView: View {
                 }.padding(2)
                 VStack {
                     Text("任务清单").font(.largeTitle.bold())
-                        
-                    Text(userSettings.storedPaths.isEmpty ? "你先去設置裡加個項目路徑唄，\n不然我咋幫你弄 TODO 啊？" : "🐂牛馬，下面是你還沒做完的事")
-                        .multilineTextAlignment(.center)
-                        .font(.body)
-                }.foregroundStyle(.white)
+                }//.foregroundStyle(.white)
                 if userSettings.storedPaths.isEmpty {
                     Button {
                         openSettings()
@@ -62,7 +52,7 @@ struct MenuView: View {
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 20)
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
-                                        .foregroundStyle(.gray.opacity(0.5))
+//                                        .foregroundStyle(.gray.opacity(0.5))
                                 }
                             VStack {
                                 Text("+")
@@ -84,7 +74,7 @@ struct MenuView: View {
                     } label: {
                         Image(systemName: "gearshape")
                             .font(.title2)
-                            .foregroundStyle(.white)
+//                            .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
                     Spacer()
                     Button {
@@ -92,7 +82,7 @@ struct MenuView: View {
                     } label: {
                         Image(systemName: "arrow.forward.square")
                             .font(.title2)
-                            .foregroundStyle(.white)
+//                            .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
 
                 }
@@ -145,16 +135,25 @@ fileprivate struct TodoContentView: View {
             VStack {
                 ForEach(self.scanService.todoItems, id: \.id) { item in
                     HStack {
-                        VStack(alignment: .leading, spacing: 10) {
-                            HStack(spacing: 0) {
-                                Text(item.fileName)
-                                    
-                                Text(":\(item.lineNumber)")
-                            }.foregroundStyle(Color.white)
-                            Text(item.content).foregroundStyle(Color.white)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(item.projectName)
+                            Text(item.fileName)
+                            Text("line: \(item.lineNumber)")
+                            Text(item.content)
                         }
                         
                         Spacer()
+                        Button {
+//                            if let url = URL(string: item.projectPath) {
+//                                viewModel.openProject(at: url)
+//                            }
+                            viewModel.openProject(at: item.projectPath)
+                            
+                        }label: {
+                            Image(systemName: "apple.terminal.on.rectangle")
+                        }
+                        .buttonStyle(.borderless)
+                        .help("添加到提醒事项")
                         Button {
                             if !authorizationManager.isReminderAuthorized {
                                 authorizationManager.requestReminderAccess()
@@ -162,7 +161,7 @@ fileprivate struct TodoContentView: View {
                                 viewModel.syncSingleItem(item: item)
                             }
                         }label: {
-                            Image(systemName: "checklist").foregroundStyle(Color.white)
+                            Image(systemName: "checklist")//.foregroundStyle(Color.white)
                         }
                         .buttonStyle(.borderless)
                         .help("添加到提醒事项")

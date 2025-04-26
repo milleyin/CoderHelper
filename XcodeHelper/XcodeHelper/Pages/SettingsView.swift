@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import LaunchAtLogin
 import DevelopmentKit
+
 
 struct SettingsView: View {
     

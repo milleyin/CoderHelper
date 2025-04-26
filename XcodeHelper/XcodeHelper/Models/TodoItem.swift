@@ -11,6 +11,8 @@ struct TodoItem: Identifiable {
     let id = UUID()
     let filePath: String
     let fileName: String
+    let projectName: String
+    let projectPath: String
     let lineNumber: Int
     let content: String
 }
