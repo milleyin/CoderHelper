@@ -35,6 +35,7 @@ struct MenuView: View {
                         
                     }
                     HStack {
+                        SysInfoData(icon: "", value: viewModel.wifiSignalLevel.rawValue)
                         SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
                         SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
                     }
@@ -52,7 +53,6 @@ struct MenuView: View {
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 20)
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
-//                                        .foregroundStyle(.gray.opacity(0.5))
                                 }
                             VStack {
                                 Text("+")
@@ -74,7 +74,6 @@ struct MenuView: View {
                     } label: {
                         Image(systemName: "gearshape")
                             .font(.title2)
-//                            .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
                     Spacer()
                     Button {
@@ -82,26 +81,12 @@ struct MenuView: View {
                     } label: {
                         Image(systemName: "arrow.forward.square")
                             .font(.title2)
-//                            .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
 
                 }
             }
             .padding()
         }
-        .padding()
-//        .background(
-//            LinearGradient(
-//                gradient: Gradient(stops: [
-//                    .init(color: .init(hex: "1E003D"), location: 0.0),    // 深紫（上左）
-//                    .init(color: .init(hex: "3C1874"), location: 0.4),    // 蓝紫（中部偏上）
-//                    .init(color: .init(hex: "2B1D52"), location: 0.7),    // 暗蓝（底部过渡）
-//                    .init(color: .init(hex: "14002D"), location: 1.0)     // 接近黑的深紫
-//                ]),
-//                startPoint: .topLeading,
-//                endPoint: .bottomTrailing
-//            )
-//        )
     }
     
     private func openSettings() {
@@ -109,7 +94,6 @@ struct MenuView: View {
             SettingsView()
                 .environmentObject(scanService)
                 .environmentObject(userSettings)
-//                .environmentObject(reminderService)
         }
     }
 }
@@ -136,35 +120,52 @@ fileprivate struct TodoContentView: View {
                 ForEach(self.scanService.todoItems, id: \.id) { item in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(item.projectName)
-                            Text(item.fileName)
-                            Text("line: \(item.lineNumber)")
+                            HStack(alignment: .bottom, spacing: 1) {
+                                Image(systemName: "list.bullet.clipboard")
+                                Text(item.projectName).bold()
+                            }
+//                            .padding(.vertical, 4)
+//                            .padding(.horizontal, 10)
+//                            .background(Color.gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 4))
+                            HStack(spacing: 0) {
+                                Text(item.fileName)
+                                Text(" :\(item.lineNumber)")
+                            }
                             Text(item.content)
+                                .multilineTextAlignment(.leading)
                         }
                         
                         Spacer()
-                        Button {
-//                            if let url = URL(string: item.projectPath) {
-//                                viewModel.openProject(at: url)
-//                            }
-                            viewModel.openProject(at: item.projectPath)
-                            
-                        }label: {
-                            Image(systemName: "apple.terminal.on.rectangle")
-                        }
-                        .buttonStyle(.borderless)
-                        .help("添加到提醒事项")
-                        Button {
-                            if !authorizationManager.isReminderAuthorized {
-                                authorizationManager.requestReminderAccess()
-                            }else {
-                                viewModel.syncSingleItem(item: item)
+                        VStack {
+                            Button {
+                                viewModel.openProject(at: item.projectPath)
+                                
+                            }label: {
+                                HStack {
+                                    Image(systemName: "command")
+                                        .font(.system(size: 16))
+                                        .padding(4)
+                                        .background(Color.gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 4))
+                                }
                             }
-                        }label: {
-                            Image(systemName: "checklist")//.foregroundStyle(Color.white)
+                            .buttonStyle(.borderless)
+                            .help("點擊使用 Xcode 開啟專案")
+                            Button {
+                                if !authorizationManager.isReminderAuthorized {
+                                    authorizationManager.requestReminderAccess()
+                                }else {
+                                    viewModel.syncSingleItem(item: item)
+                                }
+                            }label: {
+                                Image(systemName: "checklist")
+                                    .font(.system(size: 15))
+                                    .padding(4)
+                                    .background(Color.gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 4))
+                            }
+                            .buttonStyle(.borderless)
+                            .help("添加到提醒事项")
                         }
-                        .buttonStyle(.borderless)
-                        .help("添加到提醒事项")
+                        
                         
 
                     }
@@ -174,6 +175,7 @@ fileprivate struct TodoContentView: View {
             }
         }
     }
+    
 }
 
 
