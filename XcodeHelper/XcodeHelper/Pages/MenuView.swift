@@ -19,27 +19,8 @@ struct MenuView: View {
     var body: some View {
         ZStack {
             VStack {
-                VStack(spacing: 6) {
-                    HStack {
-                        if let cpuInfo = viewModel.cpuInfo {
-                            SysInfoData(icon: "cpu", value: "\(cpuInfo.totalUsage.formatted(.number.precision(.fractionLength(1)))) %")
-                        }else {
-                            SysInfoData(icon: "cpu", value: "-- %")
-                        }
-                        if let memInfo = viewModel.memInfo {
-                            SysInfoData(icon: "memorychip", value: "\(memInfo.used.formatted(.number.precision(.fractionLength(1)))) %")
-                        }else {
-                            SysInfoData(icon: "cpu", value: "-- %")
-                        }
-                        SysInfoData(icon: "internaldrive", value: "\(viewModel.availableDiskSpace) GB")
-                        
-                    }
-                    HStack {
-                        SysInfoData(icon: "", value: viewModel.wifiSignalLevel.rawValue)
-                        SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
-                        SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
-                    }
-                }.padding(2)
+                Header(viewModel: viewModel)
+                
                 VStack {
                     Text("任务清单").font(.largeTitle.bold())
                 }//.foregroundStyle(.white)
@@ -194,6 +175,46 @@ struct SysInfoData: View {
             Text(value)
                 .font(.system(size: 12))
 //                .foregroundStyle(.white)
+        }
+    }
+}
+
+fileprivate struct Header: View {
+    
+    @ObservedObject var viewModel: MenuViewModel
+    
+    var body: some View {
+        HStack {
+            Image("avatar")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 48, height: 48)
+                .clipShape(Circle())
+                .overlay(
+                    Circle().stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                )
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    if let cpuInfo = viewModel.cpuInfo {
+                        SysInfoData(icon: "cpu", value: "\(cpuInfo.totalUsage.formatted(.number.precision(.fractionLength(1)))) %")
+                    }else {
+                        SysInfoData(icon: "cpu", value: "-- %")
+                    }
+                    if let memInfo = viewModel.memInfo {
+                        SysInfoData(icon: "memorychip", value: "\(memInfo.used.formatted(.number.precision(.fractionLength(1)))) %")
+                    }else {
+                        SysInfoData(icon: "cpu", value: "-- %")
+                    }
+                    SysInfoData(icon: "internaldrive", value: "\(viewModel.availableDiskSpace) GB")
+                    
+                }
+                HStack {
+                    SysInfoData(icon: "network", value: viewModel.wifiSignalLevel.rawValue)
+                    SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
+                    SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
+                }
+            }.padding(2)
+            Spacer()
         }
     }
 }
