@@ -10,6 +10,7 @@ import EventKit
 import Combine
 import AppKit
 import DevelopmentKit
+import CoreLocationKit
 
 class MenuViewModel: ObservableObject {
     
@@ -30,6 +31,7 @@ class MenuViewModel: ObservableObject {
     
     init () {
         self.getSystemInfo()
+        CoreLocationKit.shared.requestCurrentLocation()
     }
     
     deinit {

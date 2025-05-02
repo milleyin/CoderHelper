@@ -21,7 +21,10 @@
 		E41F03952D90530100906DDB /* XcodeHelperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F03902D90530100906DDB /* XcodeHelperApp.swift */; };
 		E41F03982D90531D00906DDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F03972D90531D00906DDB /* AppDelegate.swift */; };
 		E41F039C2D90535600906DDB /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41F039B2D90535600906DDB /* MenuViewModel.swift */; };
-		E426F0A32DAA564B00F1569A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E426F0A22DAA564B00F1569A /* LocationManager.swift */; };
+		E4412E642DBDE42900586D69 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4412E632DBDE42900586D69 /* WeatherManager.swift */; };
+		E4412E662DBDE47C00586D69 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4412E652DBDE47C00586D69 /* LocationService.swift */; };
+		E4412E682DBDE4B900586D69 /* CoreLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4412E672DBDE4B900586D69 /* CoreLocationRepository.swift */; };
+		E4412E6C2DBDED8C00586D69 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = E4412E6B2DBDED8C00586D69 /* NavigationKit */; };
 		E46E58FF2DA3F52A006C4EE7 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46E58FE2DA3F52A006C4EE7 /* AuthorizationManager.swift */; };
 		E47600DE2DA0D378001996ED /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600DD2DA0D378001996ED /* VisualEffectView.swift */; };
 		E47600E02DA0D51B001996ED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47600DF2DA0D51B001996ED /* User.swift */; };
@@ -48,8 +51,10 @@
 		E41F03902D90530100906DDB /* XcodeHelperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeHelperApp.swift; sourceTree = "<group>"; };
 		E41F03972D90531D00906DDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E41F039B2D90535600906DDB /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
-		E426F0A22DAA564B00F1569A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E426F0A42DAA595100F1569A /* XcodeHelperDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XcodeHelperDebug.entitlements; sourceTree = "<group>"; };
+		E4412E632DBDE42900586D69 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		E4412E652DBDE47C00586D69 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		E4412E672DBDE4B900586D69 /* CoreLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationRepository.swift; sourceTree = "<group>"; };
 		E46E58FE2DA3F52A006C4EE7 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		E47600DD2DA0D378001996ED /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		E47600DF2DA0D51B001996ED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -65,6 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEFCA8742D9E44C2007B9540 /* DevelopmentKit in Frameworks */,
+				E4412E6C2DBDED8C00586D69 /* NavigationKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +93,6 @@
 				E46E58FE2DA3F52A006C4EE7 /* AuthorizationManager.swift */,
 				E47600DF2DA0D51B001996ED /* User.swift */,
 				E47600E12DA10DE7001996ED /* UserSettings.swift */,
-				E426F0A22DAA564B00F1569A /* LocationManager.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 				E417A3842D950F43000C1604 /* Ext. */,
 				BEFCA8772D9E5228007B9540 /* Models */,
 				E417A37F2D950B7E000C1604 /* Environment */,
+				E4412E692DBDE4C100586D69 /* Repository */,
 				E47600E32DA10FE7001996ED /* Services */,
 				E41F03962D90530C00906DDB /* Pages */,
 				E41F038C2D90530100906DDB /* Preview Content */,
@@ -156,12 +162,22 @@
 			path = Pages;
 			sourceTree = "<group>";
 		};
+		E4412E692DBDE4C100586D69 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				E4412E672DBDE4B900586D69 /* CoreLocationRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		E47600E32DA10FE7001996ED /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				BEFCA87A2D9E54B7007B9540 /* FileScannerService.swift */,
 				E47600E42DA10FFB001996ED /* ScanSchedulerService.swift */,
 				E47600E62DA1199C001996ED /* ReminderService.swift */,
+				E4412E632DBDE42900586D69 /* WeatherManager.swift */,
+				E4412E652DBDE47C00586D69 /* LocationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -184,6 +200,7 @@
 			name = XcodeHelper;
 			packageProductDependencies = (
 				BEFCA8732D9E44C2007B9540 /* DevelopmentKit */,
+				E4412E6B2DBDED8C00586D69 /* NavigationKit */,
 			);
 			productName = XcodeHelper;
 			productReference = E41F03772D90503900906DDB /* XcodeHelper.app */;
@@ -215,6 +232,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				BEFCA8722D9E44C2007B9540 /* XCRemoteSwiftPackageReference "DevelopmentKit" */,
+				E4412E6A2DBDED8C00586D69 /* XCRemoteSwiftPackageReference "NavigationKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E41F03782D90503900906DDB /* Products */;
@@ -245,13 +263,15 @@
 			files = (
 				E47600E52DA10FFB001996ED /* ScanSchedulerService.swift in Sources */,
 				E4902C9D2DA78BEA006C5C5C /* ColorExt.swift in Sources */,
+				E4412E662DBDE47C00586D69 /* LocationService.swift in Sources */,
+				E4412E642DBDE42900586D69 /* WeatherManager.swift in Sources */,
 				E47600E02DA0D51B001996ED /* User.swift in Sources */,
 				E417A37E2D950B6B000C1604 /* SettingsWindowManager.swift in Sources */,
 				BEFCA8762D9E4CF3007B9540 /* TodoItem.swift in Sources */,
 				E41F03982D90531D00906DDB /* AppDelegate.swift in Sources */,
 				E41F03942D90530100906DDB /* MenuView.swift in Sources */,
-				E426F0A32DAA564B00F1569A /* LocationManager.swift in Sources */,
 				E46E58FF2DA3F52A006C4EE7 /* AuthorizationManager.swift in Sources */,
+				E4412E682DBDE4B900586D69 /* CoreLocationRepository.swift in Sources */,
 				E417A3812D950BCA000C1604 /* SettingsView.swift in Sources */,
 				E47600E72DA1199C001996ED /* ReminderService.swift in Sources */,
 				E47600DE2DA0D378001996ED /* VisualEffectView.swift in Sources */,
@@ -412,8 +432,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
+				INFOPLIST_KEY_NSLocationUsageDescription = "获取您的地理位置来提供天气服务";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地理位置来提供天气服务";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "用于将 Xcode 的 TODO 同步到提醒事项";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -451,8 +471,8 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSLocationUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取 Wi-Fi 讯号等级需要位置权限";
+				INFOPLIST_KEY_NSLocationUsageDescription = "获取您的地理位置来提供天气服务";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "获取您的地理位置来提供天气服务";
 				INFOPLIST_KEY_NSRemindersUsageDescription = "用于将 Xcode 的 TODO 同步到提醒事项";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -500,6 +520,14 @@
 				kind = branch;
 			};
 		};
+		E4412E6A2DBDED8C00586D69 /* XCRemoteSwiftPackageReference "NavigationKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/milleyin/NavigationKit.git";
+			requirement = {
+				kind = revision;
+				revision = 5ff643c2766c560c377e4d13fdd5d2478ee7ed2e;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -507,6 +535,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BEFCA8722D9E44C2007B9540 /* XCRemoteSwiftPackageReference "DevelopmentKit" */;
 			productName = DevelopmentKit;
+		};
+		E4412E6B2DBDED8C00586D69 /* NavigationKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4412E6A2DBDED8C00586D69 /* XCRemoteSwiftPackageReference "NavigationKit" */;
+			productName = NavigationKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

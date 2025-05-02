@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 import AppKit
-import CoreLocation
+//import CoreLocation
+import CoreLocationKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
@@ -27,11 +28,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let scanService = FileScannerService.shared
         let userSettings = UserSettings.shared
         let authorizationManager = AuthorizationManager.shared
+        let locationService = CoreLocationKit.shared
         let menuView = MenuView()
 //            .preferredColorScheme(.dark)
             .environmentObject(scanService)
             .environmentObject(userSettings)
             .environmentObject(authorizationManager)
+            .environmentObject(locationService)
         let hostingController = NSHostingController(rootView: menuView)
         
         // 设置透明背景
@@ -41,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         hostingController.view.layer?.masksToBounds = true
 
         popover.contentViewController = hostingController
-        popover.contentSize = NSSize(width: 350, height: 600)
+        popover.contentSize = NSSize(width: 400, height: 600)
         popover.behavior = .transient
         
         //定时扫描任务

@@ -8,6 +8,7 @@
 import SwiftUI
 import EventKit
 import DevelopmentKit
+import CoreLocationKit
 
 struct MenuView: View {
     
@@ -20,7 +21,7 @@ struct MenuView: View {
         ZStack {
             VStack {
                 Header(viewModel: viewModel)
-                
+                Divider()
                 VStack {
                     Text("任务清单").font(.largeTitle.bold())
                 }//.foregroundStyle(.white)
@@ -182,17 +183,30 @@ struct SysInfoData: View {
 fileprivate struct Header: View {
     
     @ObservedObject var viewModel: MenuViewModel
+    @StateObject private var weatherManager = WeatherManager()
     
     var body: some View {
-        HStack {
-            Image("avatar")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 48, height: 48)
-                .clipShape(Circle())
-                .overlay(
-                    Circle().stroke(Color.gray.opacity(0.5), lineWidth: 1)
-                )
+        HStack(spacing: 0){
+            if let weather = weatherManager.currentWeather {
+                VStack {
+                    Image(systemName: weather.symbolName.description)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60)
+                        .foregroundStyle(.orange, .yellow)
+                    Text(weather.condition.description)
+                    Text("\(CoreLocationKit.shared.currentLocation)")
+                }
+            }
+            
+//            Image("avatar")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 48, height: 48)
+//                .clipShape(Circle())
+//                .overlay(
+//                    Circle().stroke(Color.gray.opacity(0.5), lineWidth: 1)
+//                )
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
                     if let cpuInfo = viewModel.cpuInfo {
@@ -213,7 +227,9 @@ fileprivate struct Header: View {
                     SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
                     SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
                 }
-            }.padding(2)
+                
+            }
+            .padding()
             Spacer()
         }
     }
