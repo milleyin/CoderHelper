@@ -524,8 +524,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/milleyin/NavigationKit.git";
 			requirement = {
-				kind = revision;
-				revision = 5ff643c2766c560c377e4d13fdd5d2478ee7ed2e;
+				branch = Dev;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

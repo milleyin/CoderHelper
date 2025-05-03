@@ -49,6 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         //定时扫描任务
         ScanSchedulerService.shared.start()
+//        locationService.requestCurrentLocation()
     }
 
     @objc func togglePopover(_ sender: AnyObject?) {

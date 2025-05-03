@@ -22,9 +22,10 @@ struct MenuView: View {
             VStack {
                 Header(viewModel: viewModel)
                 Divider()
-                VStack {
-                    Text("任务清单").font(.largeTitle.bold())
-                }//.foregroundStyle(.white)
+                HStack {
+                    Text("📝任务清单").font(.title)
+                    Spacer()
+                }
                 if userSettings.storedPaths.isEmpty {
                     Button {
                         openSettings()
@@ -102,19 +103,24 @@ fileprivate struct TodoContentView: View {
                 ForEach(self.scanService.todoItems, id: \.id) { item in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
-                            HStack(alignment: .bottom, spacing: 1) {
-                                Image(systemName: "list.bullet.clipboard")
+                            HStack(alignment: .bottom, spacing: 4) {
+//                                Image(systemName: "list.bullet.clipboard")
+                                Image("xcodeprojIcon")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 17)
                                 Text(item.projectName).bold()
                             }
-//                            .padding(.vertical, 4)
-//                            .padding(.horizontal, 10)
-//                            .background(Color.gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 4))
-                            HStack(spacing: 0) {
+                            HStack(alignment: .bottom, spacing: 4) {
+                                Image(systemName: "swift").foregroundStyle(Color.orange)
                                 Text(item.fileName)
                                 Text(" :\(item.lineNumber)")
                             }
-                            Text(item.content)
-                                .multilineTextAlignment(.leading)
+                            HStack(alignment: .bottom, spacing: 4) {
+                                Image(systemName: "list.bullet.clipboard")
+                                Text(item.content)
+                                    .multilineTextAlignment(.leading)
+                            }
                         }
                         
                         Spacer()
@@ -192,21 +198,13 @@ fileprivate struct Header: View {
                     Image(systemName: weather.symbolName.description)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 60)
-                        .foregroundStyle(.orange, .yellow)
+                        .frame(width: 36)
+                        .foregroundStyle(Color.white, Color.orange)
                     Text(weather.condition.description)
-                    Text("\(CoreLocationKit.shared.currentLocation)")
                 }
+                .padding()
+                .background(Color.black.opacity(0.05), in: RoundedRectangle(cornerRadius: 12))
             }
-            
-//            Image("avatar")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 48, height: 48)
-//                .clipShape(Circle())
-//                .overlay(
-//                    Circle().stroke(Color.gray.opacity(0.5), lineWidth: 1)
-//                )
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
                     if let cpuInfo = viewModel.cpuInfo {
@@ -227,7 +225,7 @@ fileprivate struct Header: View {
                     SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
                     SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
                 }
-                
+                Text("🐂今日气象，适合编码")
             }
             .padding()
             Spacer()

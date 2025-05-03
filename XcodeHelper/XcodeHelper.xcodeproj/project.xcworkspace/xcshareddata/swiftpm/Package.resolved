@@ -15,7 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/milleyin/NavigationKit.git",
       "state" : {
-        "revision" : "5ff643c2766c560c377e4d13fdd5d2478ee7ed2e"
+        "branch" : "Dev",
+        "revision" : "b5801f59ec8ea55b691ab28ec004971e2a63ea55"
       }
     }
   ],

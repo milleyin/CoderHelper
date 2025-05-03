@@ -22,8 +22,9 @@ class WeatherManager: ObservableObject {
     @Published var errorMessage: String?
     
     init() {
+        CoreLocationKit.shared.requestCurrentLocation()
         Task {
-            if let location = LocationService.shared.currentLocation {
+            if let location = CoreLocationKit.shared.currentLocation {
                 await fetchWeather(for: location)
             }
         }
