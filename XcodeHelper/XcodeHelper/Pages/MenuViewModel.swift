@@ -13,16 +13,19 @@ import DevelopmentKit
 import CoreLocationKit
 
 class MenuViewModel: ObservableObject {
-    
+    ///是否获得授权
     @Published var isAuthorized = false
-    
+    ///Wi-Fi信号强度等级
     @Published var wifiSignalLevel: WiFiSignalLevel = .fair
-    
+    ///Wi-Fi上行速度
     @Published var wifiUp: String = ""
+    ///Wi-Fi下行速度
     @Published var wifiDown: String = ""
-    
+    ///系统CPU信息
     @Published var cpuInfo: MacCPUInfo?
+    ///系统内存信息
     @Published var memInfo: MacMemoryInfo?
+    ///系统存储空间信息
     @Published var availableDiskSpace: Int = 0
     
     private let eventStore = EKEventStore()
@@ -37,6 +40,11 @@ class MenuViewModel: ObservableObject {
     deinit {
         self.subscriptions.forEach { $0.cancel() }
     }
+    
+}
+
+//MARK: - 外部方法
+extension MenuViewModel {
     ///同步单条todo到提醒事项
     func syncSingleItem(item: TodoItem) {
         ReminderService.shared.syncSingleItemPublisher(todo: item)
@@ -84,9 +92,20 @@ class MenuViewModel: ObservableObject {
         }
     }
     
+    ///打开设置界面
+    func openSettings() {
+        SettingsWindowManager.shared.showSettingsWindow {
+            SettingsView()
+                .environmentObject(FileScannerService.shared)
+                .environmentObject(UserSettings.shared)
+        }
+    }
+}
+//MARK: - 内部方法
+extension MenuViewModel {
+    ///获取系统信息
     private func getSystemInfo() {
         DevelopmentKit.Network.getWiFiSignalLevelPublisher()
-//            .receive(on: RunLoop.main)
             .sink { WiFiSignalLevel in
                 self.wifiSignalLevel = WiFiSignalLevel
             }.store(in: &subscriptions)
@@ -138,5 +157,4 @@ class MenuViewModel: ObservableObject {
             return "\(bytePerSecond) B/s"
         }
     }
-    
 }
