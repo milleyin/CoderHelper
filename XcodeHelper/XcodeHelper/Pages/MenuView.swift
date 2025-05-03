@@ -12,7 +12,6 @@ import CoreLocationKit
 
 struct MenuView: View {
     
-    @EnvironmentObject var scanService: FileScannerService
     @EnvironmentObject var userSettings: UserSettings
     
     @StateObject var viewModel: MenuViewModel = .init()
@@ -22,13 +21,10 @@ struct MenuView: View {
             VStack {
                 Header(viewModel: viewModel)
                 Divider()
-                HStack {
-                    Text("📝任务清单").font(.title)
-                    Spacer()
-                }
+                
                 if userSettings.storedPaths.isEmpty {
                     Button {
-                        openSettings()
+                        viewModel.openSettings()
                     } label: {
                         ZStack {
                             RoundedRectangle(cornerRadius: 20)
@@ -47,38 +43,21 @@ struct MenuView: View {
                     .buttonStyle(.borderless)
 
                 }else {
+                    HStack {
+                        Text("📝任务清单").font(.title)
+                        Spacer()
+                    }
                     TodoContentView(viewModel: viewModel)
                 }
                 Spacer()
                 Divider().padding(.vertical, 5)
-                HStack {
-                    Button {
-                        openSettings()
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .font(.title2)
-                    }.buttonStyle(.borderless)
-                    Spacer()
-                    Button {
-                        NSApp.terminate(nil)
-                    } label: {
-                        Image(systemName: "arrow.forward.square")
-                            .font(.title2)
-                    }.buttonStyle(.borderless)
-
-                }
+                Footer(viewModel: viewModel)
             }
             .padding()
         }
     }
     
-    private func openSettings() {
-        SettingsWindowManager.shared.showSettingsWindow {
-            SettingsView()
-                .environmentObject(scanService)
-                .environmentObject(userSettings)
-        }
-    }
+    
 }
 
 #Preview {
@@ -104,7 +83,6 @@ fileprivate struct TodoContentView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             HStack(alignment: .bottom, spacing: 4) {
-//                                Image(systemName: "list.bullet.clipboard")
                                 Image("xcodeprojIcon")
                                     .resizable()
                                     .scaledToFit()
@@ -166,10 +144,7 @@ fileprivate struct TodoContentView: View {
     
 }
 
-
-
-
-struct SysInfoData: View {
+fileprivate struct SysInfoData: View {
     
     var icon: String
     var value: String
@@ -178,10 +153,8 @@ struct SysInfoData: View {
         HStack(spacing: 1) {
             Image(systemName: icon)
                 .font(.system(size: 12))
-//                .foregroundStyle(.white)
             Text(value)
                 .font(.system(size: 12))
-//                .foregroundStyle(.white)
         }
     }
 }
@@ -231,4 +204,29 @@ fileprivate struct Header: View {
             Spacer()
         }
     }
+}
+
+fileprivate struct Footer: View {
+    
+    @ObservedObject var viewModel: MenuViewModel
+    
+    var body: some View {
+        HStack {
+            Button {
+                viewModel.openSettings()
+            } label: {
+                Image(systemName: "gearshape")
+                    .font(.title2)
+            }.buttonStyle(.borderless)
+            Spacer()
+            Button {
+                NSApp.terminate(nil)
+            } label: {
+                Image(systemName: "arrow.forward.square")
+                    .font(.title2)
+            }.buttonStyle(.borderless)
+            
+        }
+    }
+    
 }
