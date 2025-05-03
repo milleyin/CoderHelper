@@ -15,12 +15,12 @@ import CoreLocationKit
 class SettingsViewModel: ObservableObject {
     
     @Published var locationAuthorizationStatus: Bool = false {
-//        didSet {
-//            if self.locationAuthorizationStatus {
-//                CoreLocationKit.shared.requestAuthorization()
-//            }
-//        }
-        //TODO: 这个didset有循环调用的问题，需要继续研究
+        didSet {
+            if self.locationAuthorizationStatus {
+                CoreLocationKit.shared.requestAuthorization()
+            }
+        }
+        //TODO: 这个didset有循环调用的问题，需要继续研究，要不要加flag呢🤣
     }
     
     init() {
