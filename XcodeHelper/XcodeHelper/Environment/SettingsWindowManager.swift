@@ -15,7 +15,7 @@ class SettingsWindowManager {
 
     func showSettingsWindow<Content: View>(@ViewBuilder content: () -> Content) {
         if window == nil {
-            let hostingController = NSHostingController(rootView: content().preferredColorScheme(.dark))
+            let hostingController = NSHostingController(rootView: content()/*.preferredColorScheme(.dark)*/)
             window = NSWindow(
                 contentViewController: hostingController
             )

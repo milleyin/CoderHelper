@@ -8,6 +8,7 @@
 import SwiftUI
 import EventKit
 import DevelopmentKit
+import CoreLocationKit
 
 struct MenuView: View {
     
@@ -19,29 +20,12 @@ struct MenuView: View {
     var body: some View {
         ZStack {
             VStack {
-                VStack(spacing: 6) {
-                    HStack {
-                        if let cpuInfo = viewModel.cpuInfo {
-                            SysInfoData(icon: "cpu", value: "\(cpuInfo.totalUsage.formatted(.number.precision(.fractionLength(1)))) %")
-                        }else {
-                            SysInfoData(icon: "cpu", value: "-- %")
-                        }
-                        if let memInfo = viewModel.memInfo {
-                            SysInfoData(icon: "memorychip", value: "\(memInfo.used.formatted(.number.precision(.fractionLength(1)))) %")
-                        }else {
-                            SysInfoData(icon: "cpu", value: "-- %")
-                        }
-                        SysInfoData(icon: "internaldrive", value: "\(viewModel.availableDiskSpace) GB")
-                        
-                    }
-                    HStack {
-                        SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
-                        SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
-                    }
-                }.padding(2)
-                VStack {
-                    Text("任务清单").font(.largeTitle.bold())
-                }//.foregroundStyle(.white)
+                Header(viewModel: viewModel)
+                Divider()
+                HStack {
+                    Text("📝任务清单").font(.title)
+                    Spacer()
+                }
                 if userSettings.storedPaths.isEmpty {
                     Button {
                         openSettings()
@@ -52,7 +36,6 @@ struct MenuView: View {
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 20)
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
-//                                        .foregroundStyle(.gray.opacity(0.5))
                                 }
                             VStack {
                                 Text("+")
@@ -74,7 +57,6 @@ struct MenuView: View {
                     } label: {
                         Image(systemName: "gearshape")
                             .font(.title2)
-//                            .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
                     Spacer()
                     Button {
@@ -82,26 +64,12 @@ struct MenuView: View {
                     } label: {
                         Image(systemName: "arrow.forward.square")
                             .font(.title2)
-//                            .foregroundStyle(.white)
                     }.buttonStyle(.borderless)
 
                 }
             }
             .padding()
         }
-        .padding()
-//        .background(
-//            LinearGradient(
-//                gradient: Gradient(stops: [
-//                    .init(color: .init(hex: "1E003D"), location: 0.0),    // 深紫（上左）
-//                    .init(color: .init(hex: "3C1874"), location: 0.4),    // 蓝紫（中部偏上）
-//                    .init(color: .init(hex: "2B1D52"), location: 0.7),    // 暗蓝（底部过渡）
-//                    .init(color: .init(hex: "14002D"), location: 1.0)     // 接近黑的深紫
-//                ]),
-//                startPoint: .topLeading,
-//                endPoint: .bottomTrailing
-//            )
-//        )
     }
     
     private func openSettings() {
@@ -109,7 +77,6 @@ struct MenuView: View {
             SettingsView()
                 .environmentObject(scanService)
                 .environmentObject(userSettings)
-//                .environmentObject(reminderService)
         }
     }
 }
@@ -136,35 +103,57 @@ fileprivate struct TodoContentView: View {
                 ForEach(self.scanService.todoItems, id: \.id) { item in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(item.projectName)
-                            Text(item.fileName)
-                            Text("line: \(item.lineNumber)")
-                            Text(item.content)
+                            HStack(alignment: .bottom, spacing: 4) {
+//                                Image(systemName: "list.bullet.clipboard")
+                                Image("xcodeprojIcon")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 17)
+                                Text(item.projectName).bold()
+                            }
+                            HStack(alignment: .bottom, spacing: 4) {
+                                Image(systemName: "swift").foregroundStyle(Color.orange)
+                                Text(item.fileName)
+                                Text(" :\(item.lineNumber)")
+                            }
+                            HStack(alignment: .bottom, spacing: 4) {
+                                Image(systemName: "list.bullet.clipboard")
+                                Text(item.content)
+                                    .multilineTextAlignment(.leading)
+                            }
                         }
                         
                         Spacer()
-                        Button {
-//                            if let url = URL(string: item.projectPath) {
-//                                viewModel.openProject(at: url)
-//                            }
-                            viewModel.openProject(at: item.projectPath)
-                            
-                        }label: {
-                            Image(systemName: "apple.terminal.on.rectangle")
-                        }
-                        .buttonStyle(.borderless)
-                        .help("添加到提醒事项")
-                        Button {
-                            if !authorizationManager.isReminderAuthorized {
-                                authorizationManager.requestReminderAccess()
-                            }else {
-                                viewModel.syncSingleItem(item: item)
+                        VStack {
+                            Button {
+                                viewModel.openProject(at: item.projectPath)
+                                
+                            }label: {
+                                HStack {
+                                    Image(systemName: "command")
+                                        .font(.system(size: 16))
+                                        .padding(4)
+                                        .background(Color.gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 4))
+                                }
                             }
-                        }label: {
-                            Image(systemName: "checklist")//.foregroundStyle(Color.white)
+                            .buttonStyle(.borderless)
+                            .help("點擊使用 Xcode 開啟專案")
+                            Button {
+                                if !authorizationManager.isReminderAuthorized {
+                                    authorizationManager.requestReminderAccess()
+                                }else {
+                                    viewModel.syncSingleItem(item: item)
+                                }
+                            }label: {
+                                Image(systemName: "checklist")
+                                    .font(.system(size: 15))
+                                    .padding(4)
+                                    .background(Color.gray.opacity(0.2), in: RoundedRectangle(cornerRadius: 4))
+                            }
+                            .buttonStyle(.borderless)
+                            .help("添加到提醒事项")
                         }
-                        .buttonStyle(.borderless)
-                        .help("添加到提醒事项")
+                        
                         
 
                     }
@@ -174,6 +163,7 @@ fileprivate struct TodoContentView: View {
             }
         }
     }
+    
 }
 
 
@@ -192,6 +182,53 @@ struct SysInfoData: View {
             Text(value)
                 .font(.system(size: 12))
 //                .foregroundStyle(.white)
+        }
+    }
+}
+
+fileprivate struct Header: View {
+    
+    @ObservedObject var viewModel: MenuViewModel
+    @StateObject private var weatherManager = WeatherManager()
+    
+    var body: some View {
+        HStack(spacing: 0){
+            if let weather = weatherManager.currentWeather {
+                VStack {
+                    Image(systemName: weather.symbolName.description)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 36)
+                        .foregroundStyle(Color.white, Color.orange)
+                    Text(weather.condition.description)
+                }
+                .padding()
+                .background(Color.black.opacity(0.05), in: RoundedRectangle(cornerRadius: 12))
+            }
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    if let cpuInfo = viewModel.cpuInfo {
+                        SysInfoData(icon: "cpu", value: "\(cpuInfo.totalUsage.formatted(.number.precision(.fractionLength(1)))) %")
+                    }else {
+                        SysInfoData(icon: "cpu", value: "-- %")
+                    }
+                    if let memInfo = viewModel.memInfo {
+                        SysInfoData(icon: "memorychip", value: "\(memInfo.used.formatted(.number.precision(.fractionLength(1)))) %")
+                    }else {
+                        SysInfoData(icon: "cpu", value: "-- %")
+                    }
+                    SysInfoData(icon: "internaldrive", value: "\(viewModel.availableDiskSpace) GB")
+                    
+                }
+                HStack {
+                    SysInfoData(icon: "network", value: viewModel.wifiSignalLevel.rawValue)
+                    SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
+                    SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
+                }
+                Text("🐂今日气象，适合编码")
+            }
+            .padding()
+            Spacer()
         }
     }
 }

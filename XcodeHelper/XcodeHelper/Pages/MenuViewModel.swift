@@ -10,11 +10,12 @@ import EventKit
 import Combine
 import AppKit
 import DevelopmentKit
+import CoreLocationKit
 
 class MenuViewModel: ObservableObject {
     
     @Published var isAuthorized = false
-    //目前这个东西只能在开发模式才有效
+    
     @Published var wifiSignalLevel: WiFiSignalLevel = .fair
     
     @Published var wifiUp: String = ""
@@ -30,6 +31,7 @@ class MenuViewModel: ObservableObject {
     
     init () {
         self.getSystemInfo()
+        CoreLocationKit.shared.requestCurrentLocation()
     }
     
     deinit {

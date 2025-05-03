@@ -88,11 +88,11 @@ fileprivate struct ScanPathView: View {
                 Text("掃描路徑")
                     .font(.system(.largeTitle))
                 Spacer()
-            }.foregroundStyle(Color.white)
+            }//.foregroundStyle(Color.white)
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.init(hex: "#091D31"))
-                    .opacity(0.2)
+//                    .fill(Color.init(hex: "#091D31"))
+                    .opacity(0.1)
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.gray.opacity(0.2), lineWidth: 1)
@@ -124,7 +124,7 @@ fileprivate struct ScanPathView: View {
                                 HStack {
                                     
                                     Text(path.path)
-                                        .foregroundStyle(Color.white)
+//                                        .foregroundStyle(Color.white)
                                         .lineLimit(1)
                                         .truncationMode(.middle)
                                     Spacer()
@@ -133,7 +133,7 @@ fileprivate struct ScanPathView: View {
                                     } label: {
                                         Image(systemName: "trash")
                                             .font(.system(size: 16, design: .rounded))
-                                            .foregroundStyle(Color.white)
+//                                            .foregroundStyle(Color.white)
                                     }
                                     .buttonStyle(.plain)
                                     Button {
@@ -141,7 +141,7 @@ fileprivate struct ScanPathView: View {
                                     } label: {
                                         Image(systemName: "plus.circle")
                                             .font(.system(size: 16, design: .rounded))
-                                            .foregroundStyle(Color.white)
+//                                            .foregroundStyle(Color.white)
                                     }.buttonStyle(.plain)
 
                                 }
@@ -180,13 +180,16 @@ fileprivate struct AutoSyncView: View {
                 Image(systemName: "arrow.down.left.arrow.up.right.circle")
                     .font(.system(.largeTitle))
                     .foregroundStyle(.yellow)
-                Text("自動同步").font(.largeTitle).foregroundStyle(.white)
+                Text("自動同步")
+                    .font(.largeTitle)
+//                    .foregroundStyle(.white)
                 Spacer()
             }
             //同步到提醒事项
             Toggle(isOn: $userSettings.autoSyncToReminders) {
                 HStack {
-                    Text("自動同步TODO到Apple提醒事項").foregroundStyle(.white)
+                    Text("自動同步TODO到Apple提醒事項")
+//                        .foregroundStyle(.white)
                     Spacer()
                 }
             }.toggleStyle(.switch)
@@ -209,7 +212,7 @@ fileprivate struct ScanSettingView: View {
                     .foregroundStyle(.red)
                 Text("掃描頻率")
                     .font(.largeTitle)
-                    .foregroundStyle(.white)
+//                    .foregroundStyle(.white)
                 Spacer()
             }
             Picker("", selection: $userSettings.scanFrequency) {
@@ -240,14 +243,14 @@ fileprivate struct OtherSettingView: View {
                     .foregroundStyle(.green)
                 Text("其他设置")
                     .font(.largeTitle)
-                    .foregroundStyle(.white)
+//                    .foregroundStyle(.white)
                 Spacer()
             }
             HStack {
                 LaunchAtLogin.Toggle(){
                     HStack {
                         Text("开机自动启动")
-                            .foregroundStyle(.white)
+//                            .foregroundStyle(.white)
                         Spacer()
                     }.padding(.leading, 10)
                 }.toggleStyle(.switch)
@@ -256,7 +259,7 @@ fileprivate struct OtherSettingView: View {
                 Toggle(isOn: $userSettings.enableXcodeTracking) {
                     HStack {
                         Text("Xcode 项目退出后自动扫描（开发中...）")
-                            .foregroundStyle(.white)
+//                            .foregroundStyle(.white)
                         Spacer()
                     }.padding(.leading, 10)
                 }.toggleStyle(.switch)
