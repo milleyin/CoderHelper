@@ -7,32 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "278AD6F0-EF1E-4E84-A625-EF31BA601352"
+            uuid = "70D50F0C-557C-4AC6-B832-5F08AF8DD856"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../Library/Developer/Xcode/DerivedData/XcodeHelper-bgizgteaulerusaiueksendeebgv/SourcePackages/checkouts/NavigationKit/Sources/NavigationKit/CoreLocationKit/CoreLocationKit.swift"
+            filePath = "XcodeHelper/Services/WeatherManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "currentLocation"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "init()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D0184C4-3189-4604-8877-AC39BE421705"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "XcodeHelper/Pages/SettingsViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "locationAuthorizationStatus"
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6F50247C-0BEB-4228-89D7-4947537D8A62"
+            uuid = "35263981-B552-4A85-9578-C1A86E94F807"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../Library/Developer/Xcode/DerivedData/XcodeHelper-bgizgteaulerusaiueksendeebgv/SourcePackages/checkouts/NavigationKit/Sources/NavigationKit/CoreLocationKit/CoreLocationKit.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
-            landmarkName = "requestCurrentLocation()"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
+            landmarkName = "requestAuthorization()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

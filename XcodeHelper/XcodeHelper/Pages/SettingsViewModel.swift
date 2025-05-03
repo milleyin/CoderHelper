@@ -6,27 +6,34 @@
 //
 
 import Foundation
-import DevelopmentKit
 import AppKit
 import Combine
+import DevelopmentKit
+import CoreLocation
+import CoreLocationKit
 
 class SettingsViewModel: ObservableObject {
     
+    @Published var locationAuthorizationStatus: Bool = false {
+//        didSet {
+//            if self.locationAuthorizationStatus {
+//                CoreLocationKit.shared.requestAuthorization()
+//            }
+//        }
+        //TODO: 这个didset有循环调用的问题，需要继续研究
+    }
+    
     init() {
         scanStoredPaths()
+        self.getLocationAuthorizationStatus()
     }
     
     var subscriptions: Set<AnyCancellable> = .init()
     deinit {
         self.subscriptions.forEach { $0.cancel() }
     }
+    
 }
-//TODO: 测试todo扫描功能1
-//TODO: 测试todo扫描功能2
-//TODO: 测试todo扫描功能3
-//TODO: 测试todo扫描功能4
-//TODO: 测试todo扫描功能4
-//TODO: 测试todo扫描功能4
 
 //MARK: - 路径
 extension SettingsViewModel {
@@ -94,3 +101,17 @@ extension SettingsViewModel {
     }
 }
 
+//MARK: - 内部方法
+extension SettingsViewModel {
+    private func getLocationAuthorizationStatus() {
+        CoreLocationKit.shared.authorizationStatusPublisher
+            .sink { status in
+                switch status {
+                case .authorizedAlways:
+                    self.locationAuthorizationStatus = true
+                default:
+                    self.locationAuthorizationStatus = false
+                }
+            }.store(in: &subscriptions)
+    }
+}

@@ -21,7 +21,6 @@ struct MenuView: View {
             VStack {
                 Header(viewModel: viewModel)
                 Divider()
-                
                 if userSettings.storedPaths.isEmpty {
                     Button {
                         viewModel.openSettings()

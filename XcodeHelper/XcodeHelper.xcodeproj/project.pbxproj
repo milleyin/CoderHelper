@@ -419,7 +419,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025076;
+				CURRENT_PROJECT_VERSION = 2025077;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
 				DEVELOPMENT_TEAM = 2U974MU9D9;
@@ -459,7 +459,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2025076;
+				CURRENT_PROJECT_VERSION = 2025077;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"XcodeHelper/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -524,8 +524,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/milleyin/NavigationKit.git";
 			requirement = {
-				branch = Dev;
-				kind = branch;
+				kind = revision;
+				revision = c1225aa03822b18f89ea065cc332c02e669cd3c6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
