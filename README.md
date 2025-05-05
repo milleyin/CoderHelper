@@ -1,4 +1,4 @@
-# 🛠️ Xcoder Helper
+# 🛠️ Coder Helper
 
 **一款 macOS Menu Bar 工具，專為 Apple 平台開發者打造，讓你輕鬆管理 Xcode 項目中的 TODO 任務。**
 
