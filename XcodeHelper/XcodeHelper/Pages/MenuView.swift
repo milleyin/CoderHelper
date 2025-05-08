@@ -173,7 +173,7 @@ fileprivate struct Header: View {
                         .scaledToFit()
                         .frame(width: 36)
                         .foregroundStyle(Color.white, Color.orange)
-                    Text(weather.condition.description)
+                    Text(weather.condition.localizedDescription)
                 }
                 .padding()
                 .background(Color.black.opacity(0.05), in: RoundedRectangle(cornerRadius: 12))
