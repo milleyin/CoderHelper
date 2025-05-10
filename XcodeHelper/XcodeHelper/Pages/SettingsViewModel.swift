@@ -21,13 +21,14 @@ class SettingsViewModel: ObservableObject {
         self.subscriptions.forEach { $0.cancel() }
     }
 }
-//TODO: 测试todo扫描功能1
+#if DEBUG
+//TODO: 测试todo扫描功能1测试todo扫描功能1测试todo扫描功能1测试todo扫描功能1
 //TODO: 测试todo扫描功能2
 //TODO: 测试todo扫描功能3
 //TODO: 测试todo扫描功能4
 //TODO: 测试todo扫描功能4
 //TODO: 测试todo扫描功能4
-
+#endif
 //MARK: - 路径
 extension SettingsViewModel {
     ///添加路径

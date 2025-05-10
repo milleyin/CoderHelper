@@ -94,7 +94,7 @@ fileprivate struct TodoContentView: View {
                                 Text(item.fileName)
                                 Text(" :\(item.lineNumber)")
                             }
-                            HStack(alignment: .bottom, spacing: 4) {
+                            HStack(alignment: .top, spacing: 4) {
                                 Image(systemName: "list.bullet.clipboard")
                                 Text(item.content)
                                     .multilineTextAlignment(.leading)
