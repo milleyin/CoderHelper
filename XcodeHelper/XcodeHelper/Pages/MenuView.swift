@@ -94,7 +94,7 @@ fileprivate struct TodoContentView: View {
                                 Text(item.fileName)
                                 Text(" :\(item.lineNumber)")
                             }
-                            HStack(alignment: .bottom, spacing: 4) {
+                            HStack(alignment: .top, spacing: 4) {
                                 Image(systemName: "list.bullet.clipboard")
                                 Text(item.content)
                                     .multilineTextAlignment(.leading)
@@ -166,18 +166,26 @@ fileprivate struct Header: View {
     
     var body: some View {
         HStack(spacing: 0){
-            if let weather = weatherManager.currentWeather {
-                VStack {
-                    Image(systemName: weather.symbolName.description)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 36)
-                        .foregroundStyle(Color.white, Color.orange)
-                    Text(weather.condition.localizedDescription)
+            ZStack {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.black.opacity(0.05))
+                    .frame(width: 74, height: 74)
+                if let weather = weatherManager.currentWeather {
+                    VStack {
+                        Image(systemName: weather.symbolName.description)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 36)
+                            .foregroundStyle(Color.white, Color.orange)
+                        Text(weather.condition.localizedDescription)
+                    }
+                    .padding()
+                }else {
+                    Image(systemName: "mappin.slash.circle")
+                        .font(.system(size: 28))
                 }
-                .padding()
-                .background(Color.black.opacity(0.05), in: RoundedRectangle(cornerRadius: 12))
             }
+            
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
                     if let cpuInfo = viewModel.cpuInfo {
@@ -198,7 +206,14 @@ fileprivate struct Header: View {
                     SysInfoData(icon: "arrow.up.right", value: viewModel.wifiUp)
                     SysInfoData(icon: "arrow.down.left", value: viewModel.wifiDown)
                 }
-                Text("🐂今日气象，适合编码")
+                if let _ = weatherManager.currentWeather {
+                    Text("☁️今日气象，适合编码")
+                }else {
+                    HStack(spacing: 4) {
+                        Image(systemName: "icloud.slash")
+                        Text("獲取定位失敗，暫無天氣數據")
+                    }
+                }
             }
             .padding()
             Spacer()
